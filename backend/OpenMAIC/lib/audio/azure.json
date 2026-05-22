@@ -1,0 +1,20 @@
+{
+  "voices": [
+    {
+      "Name": "Microsoft Server Speech Text to Speech Voice (zh-CN, XiaoxiaoNeural)",
+      "ShortName": "zh-CN-XiaoxiaoNeural",
+      "Gender": "Female",
+      "Locale": "zh-CN",
+      "LocalName": "晓晓",
+      "LocaleName": "Chinese (Mainland)",
+      "DisplayName": "Xiaoxiao",
+      "SuggestedCodec": "audio-24khz-48kbitrate-mono-mp3",
+      "FriendlyName": "Microsoft Xiaoxiao Online (Natural) - Chinese (Mainland)",
+      "Status": "GA",
+      "VoiceTag": {
+        "ContentCategories": ["Conversation", "Narration"],
+        "VoicePersonalities": ["Friendly", "Warm"]
+      }
+    }
+  ]
+}
