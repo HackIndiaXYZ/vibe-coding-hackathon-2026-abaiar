@@ -17,17 +17,17 @@
               </svg>
             </div>
             <div class="agent-header-info">
-              <span class="agent-title">师小助 AI</span>
-              <span class="agent-status">在线 · AI助教</span>
+              <span class="agent-title">Shi Xiao Zhu AI</span>
+              <span class="agent-status">Online · AI Tutor</span>
             </div>
           </div>
           <div class="agent-header-actions">
-            <button class="agent-header-btn" @click="clearHistory" title="清空对话">
+            <button class="agent-header-btn" @click="clearHistory" title="Clear Chat">
               <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14z"/>
               </svg>
             </button>
-            <button class="agent-header-btn" @click="togglePanel" title="最小化">
+            <button class="agent-header-btn" @click="togglePanel" title="Minimize">
               <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M19 9l-7 7-7-7"/>
               </svg>
@@ -43,8 +43,8 @@
                 <path d="M5 11h14v8a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3v-8z"/>
               </svg>
             </div>
-            <p class="agent-welcome-title">你好！我是师小助 AI</p>
-            <p class="agent-welcome-sub">AI知识问答 · 学习数据分析 · 个性化指导</p>
+            <p class="agent-welcome-title">Hello! I'm Shi Xiao Zhu AI</p>
+            <p class="agent-welcome-sub">AI Knowledge Q&A · Learning Analytics · Personalized Guidance</p>
             <div class="agent-suggestions">
               <button v-for="s in suggestions" :key="s.text" class="agent-suggestion-btn" @click="sendSuggestion(s.text)">
                 <span class="agent-suggestion-icon">{{ s.icon }}</span>
@@ -98,7 +98,7 @@
             ref="inputRef"
             v-model="inputText"
             class="agent-input"
-            placeholder="输入你的问题..."
+            placeholder="Type your question..."
             rows="1"
             @keydown.enter.exact.prevent="sendMessage"
             @input="autoResize"
@@ -111,7 +111,7 @@
         </div>
       </div>
     </transition>
-    <button class="agent-fab" :class="{ 'agent-fab-hidden': isOpen }" @click="togglePanel" title="AI助教">
+    <button class="agent-fab" :class="{ 'agent-fab-hidden': isOpen }" @click="togglePanel" title="AI Tutor">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="26" height="26">
         <path d="M12 2a4 4 0 0 1 4 4v1a1 1 0 0 0 1 1h1a2 2 0 0 1 2 2v1H4v-1a2 2 0 0 1 2-2h1a1 1 0 0 0 1-1V6a4 4 0 0 1 4-4z"/>
         <path d="M8 14v2m4-2v2m4-2v2"/>
@@ -130,11 +130,11 @@ const STORAGE_KEY = 'agent_chat_history'
 const MAX_HISTORY = 50
 
 const TOOL_NAME_MAP = {
-  query_user_stats: '查询用户统计',
-  query_practice_history: '查询练习记录',
-  query_leaderboard: '查询排行榜',
-  query_wrong_questions: '查询错题',
-  query_system_overview: '查询系统概览'
+  query_user_stats: 'Query User Stats',
+  query_practice_history: 'Query Practice Records',
+  query_leaderboard: 'Query Leaderboard',
+  query_wrong_questions: 'Query Wrong Questions',
+  query_system_overview: 'Query System Overview'
 }
 
 function renderKatex(latex, displayMode) {
@@ -180,7 +180,7 @@ const marked = new Marked({
       const isMermaid = lang === 'mermaid'
       if (isMermaid) {
         const escaped = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-        return `<div class="agent-mermaid-wrapper"><div class="agent-mermaid-label">Mermaid 流程图</div><pre class="agent-mermaid-block"><code>${escaped}</code></pre></div>`
+        return `<div class="agent-mermaid-wrapper"><div class="agent-mermaid-label">Mermaid Flowchart</div><pre class="agent-mermaid-block"><code>${escaped}</code></pre></div>`
       }
       const language = lang && hljs.getLanguage(lang) ? lang : ''
       let highlighted
@@ -209,10 +209,10 @@ export default {
       toolIndicator: '',
       abortController: null,
       suggestions: [
-        { icon: '🧠', text: '什么是Transformer？' },
-        { icon: '📊', text: '查看我的学习统计' },
-        { icon: '🏆', text: '查看排行榜' },
-        { icon: '💡', text: '如何学习深度学习？' }
+        { icon: '🧠', text: 'What is a Transformer?' },
+        { icon: '📊', text: 'View my learning stats' },
+        { icon: '🏆', text: 'View leaderboard' },
+        { icon: '💡', text: 'How to learn deep learning?' }
       ]
     }
   },
@@ -322,7 +322,7 @@ export default {
                 this.scrollToBottom()
               } else if (event.type === 'tool_call') {
                 const label = TOOL_NAME_MAP[event.tool] || event.tool
-                this.toolIndicator = `正在${label}...`
+                this.toolIndicator = `Querying ${label}...`
               } else if (event.type === 'tool_result') {
                 this.toolIndicator = ''
               } else if (event.type === 'error') {
@@ -337,7 +337,7 @@ export default {
         }
       } catch (e) {
         if (e.name !== 'AbortError') {
-          this.messages.push({ role: 'assistant', content: '网络连接异常，请检查网络后重试。' })
+          this.messages.push({ role: 'assistant', content: 'Network connection error. Please check your network and try again.' })
         }
       } finally {
         this.loading = false

@@ -5,14 +5,14 @@
         <svg viewBox="0 0 1024 1024" width="20" height="20">
           <path d="M669.6 849.6L368.8 548.8c-12-12-12-32 0-44l300.8-300.8c12-12 32-12 44 0s12 32 0 44L436 526.8l277.6 278.8c12 12 12 32 0 44-6 6-14 8.4-22 8.4s-16-2.8-22-8.4z" fill="currentColor"/>
         </svg>
-        返回路线图
+        Back to Roadmap
       </button>
     </div>
 
     <div class="detail-content">
       <div class="detail-hero" :style="{ background: `linear-gradient(135deg, ${levelColor}30, ${levelColor}10)` }">
         <div class="hero-badge" :style="{ backgroundColor: levelColor }">
-          阶段 {{ nodeData.level }}
+          Stage {{ nodeData.level }}
         </div>
         <h1 class="hero-title">{{ nodeData.name }}</h1>
         <div class="hero-meta">
@@ -21,7 +21,7 @@
           </span>
           <span class="importance-badge">
             <span v-for="i in 5" :key="i" class="star" :class="{ filled: i <= nodeData.importance }">★</span>
-            <span class="importance-text">重要度 {{ nodeData.importance }}/5</span>
+            <span class="importance-text">Importance {{ nodeData.importance }}/5</span>
           </span>
         </div>
       </div>
@@ -31,7 +31,7 @@
           <section class="detail-section">
             <h2 class="section-heading">
               <svg viewBox="0 0 1024 1024" width="20" height="20"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64z m0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" fill="currentColor"/><path d="M464 336a48 48 0 1 1 96 0 48 48 0 1 1-96 0z m72 112h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V456c0-4.4-3.6-8-8-8z" fill="currentColor"/></svg>
-              知识点介绍
+              Knowledge Overview
             </h2>
             <p class="description-text">{{ nodeData.description }}</p>
           </section>
@@ -39,7 +39,7 @@
           <section class="detail-section">
             <h2 class="section-heading">
               <svg viewBox="0 0 1024 1024" width="20" height="20"><path d="M928 160H96c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32z m-40 632H136V232h752v560z" fill="currentColor"/><path d="M610.3 476h123.4c1.3 0 2.3-3.6 2.3-8v-48c0-4.4-1-8-2.3-8H610.3c-1.3 0-2.3 3.6-2.3 8v48c0 4.4 1 8 2.3 8z" fill="currentColor"/></svg>
-              子知识点
+              Sub-topics
             </h2>
             <div class="sub-topics">
               <div
@@ -57,11 +57,11 @@
           <section class="detail-section">
             <h2 class="section-heading">
               <svg viewBox="0 0 1024 1024" width="20" height="20"><path d="M512 128c-212.1 0-384 171.9-384 384s171.9 384 384 384 384-171.9 384-384-171.9-384-384-384z m0 704c-176.7 0-320-143.3-320-320s143.3-320 320-320 320 143.3 320 320-143.3 320-320 320z" fill="currentColor"/><path d="M512 256c-141.4 0-256 114.6-256 256s114.6 256 256 256 256-114.6 256-256-114.6-256-256-256z m0 448c-106 0-192-86-192-192s86-192 192-192 192 86 192 192-86 192-192 192z" fill="currentColor"/></svg>
-              知识关联
+              Related Knowledge
             </h2>
             <div class="relations-grid">
               <div class="relation-group" v-if="prerequisiteNodes.length > 0">
-                <h3 class="relation-label prerequisite-label">前置知识</h3>
+                <h3 class="relation-label prerequisite-label">Prerequisites</h3>
                 <div class="relation-tags">
                   <button
                     v-for="pre in prerequisiteNodes"
@@ -74,7 +74,7 @@
                 </div>
               </div>
               <div class="relation-group" v-if="relatedNodeData.length > 0">
-                <h3 class="relation-label related-label">相关知识</h3>
+                <h3 class="relation-label related-label">Related Topics</h3>
                 <div class="relation-tags">
                   <button
                     v-for="rel in relatedNodeData"
@@ -92,7 +92,7 @@
           <section class="detail-section">
             <h2 class="section-heading">
               <svg viewBox="0 0 1024 1024" width="20" height="20"><path d="M928 160H96c-17.7 0-32 14.3-32 32v640c0 17.7 14.3 32 32 32h832c17.7 0 32-14.3 32-32V192c0-17.7-14.3-32-32-32z m-40 632H136V232h752v560z" fill="currentColor"/><path d="M610.3 476h123.4c1.3 0 2.3-3.6 2.3-8v-48c0-4.4-1-8-2.3-8H610.3c-1.3 0-2.3 3.6-2.3 8v48c0 4.4 1 8 2.3 8z m-220.8-8v-48c0-4.4 1-8 2.3-8h123.4c1.3 0 2.3 3.6 2.3 8v48c0 4.4-1 8-2.3 8H391.8c-1.3 0-2.3-3.6-2.3-8z" fill="currentColor"/></svg>
-              推荐视频资源
+              Recommended Video Resources
             </h2>
             <div class="video-list">
               <a
@@ -125,7 +125,7 @@
 
         <aside class="detail-sidebar">
           <div class="sidebar-card learning-path-card">
-            <h3 class="sidebar-title">学习路径</h3>
+            <h3 class="sidebar-title">Learning Path</h3>
             <div class="path-steps">
               <div
                 v-for="(pre, index) in prerequisiteNodes"
@@ -136,12 +136,12 @@
               >
                 <div class="step-connector" v-if="index < prerequisiteNodes.length"></div>
                 <span class="step-name">{{ pre.name }}</span>
-                <span class="step-level">阶段{{ pre.level }}</span>
+                <span class="step-level">Stage {{ pre.level }}</span>
               </div>
               <div class="path-step current-step" :style="{ borderLeftColor: levelColor }">
                 <div class="step-connector"></div>
                 <span class="step-name">{{ nodeData.name }}</span>
-                <span class="step-level current-level">当前</span>
+                <span class="step-level current-level">Current</span>
               </div>
               <div
                 v-for="(rel, index) in nextNodes"
@@ -152,13 +152,13 @@
               >
                 <div class="step-connector" v-if="index === 0"></div>
                 <span class="step-name">{{ rel.name }}</span>
-                <span class="step-level">阶段{{ rel.level }}</span>
+                <span class="step-level">Stage {{ rel.level }}</span>
               </div>
             </div>
           </div>
 
           <div class="sidebar-card">
-            <h3 class="sidebar-title">快速跳转</h3>
+            <h3 class="sidebar-title">Quick Jump</h3>
             <div class="quick-links">
               <button
                 v-for="node in allNodes.slice(0, 10)"
@@ -178,9 +178,9 @@
 
   <div class="not-found" :class="{ 'dark-mode': isDark }" v-else>
     <div class="not-found-content">
-      <h2>知识点未找到</h2>
-      <p>请检查URL是否正确</p>
-      <button class="back-btn" @click="$router.push('/learn')">返回路线图</button>
+      <h2>Knowledge Point Not Found</h2>
+      <p>Please check if the URL is correct</p>
+      <button class="back-btn" @click="$router.push('/learn')">Back to Roadmap</button>
     </div>
   </div>
 </template>
@@ -254,7 +254,7 @@ export default {
       return levelColors[level] || '#667eea'
     },
     getPlatformName(platform) {
-      const names = { bilibili: '哔哩哔哩', youtube: 'YouTube', mooc: '中国大学MOOC' }
+      const names = { bilibili: 'Bilibili', youtube: 'YouTube', mooc: 'Chinese University MOOC' }
       return names[platform] || platform
     }
   },

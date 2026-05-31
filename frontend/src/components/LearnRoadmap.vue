@@ -5,10 +5,10 @@
         <svg viewBox="0 0 1024 1024" width="20" height="20">
           <path d="M669.6 849.6L368.8 548.8c-12-12-12-32 0-44l300.8-300.8c12-12 32-12 44 0s12 32 0 44L436 526.8l277.6 278.8c12 12 12 32 0 44-6 6-14 8.4-22 8.4s-16-2.8-22-8.4z" fill="currentColor"/>
         </svg>
-        返回主页
+        Back to Home
       </button>
-      <h1 class="page-title">AI学习路线图</h1>
-      <p class="page-subtitle">从零基础到高级AI算法的完整知识体系</p>
+      <h1 class="page-title">AI Learning Roadmap</h1>
+      <p class="page-subtitle">A complete knowledge system from zero to advanced AI algorithms</p>
     </div>
 
     <div class="category-filter">
@@ -27,14 +27,14 @@
         :class="{ active: activeCategory === null }"
         @click="activeCategory = null"
       >
-        全部显示
+        Show All
       </button>
     </div>
 
     <div class="chart-container" ref="chartContainer"></div>
 
     <div class="level-legend">
-      <div class="legend-title">学习阶段</div>
+      <div class="legend-title">Learning Stages</div>
       <div class="legend-items">
         <div class="legend-item" v-for="level in levelConfig" :key="level.value">
           <span class="legend-dot" :style="{ backgroundColor: level.color }"></span>
@@ -44,7 +44,7 @@
     </div>
 
     <div class="node-list-section">
-      <h2 class="section-title">知识点索引</h2>
+      <h2 class="section-title">Knowledge Index</h2>
       <div class="node-grid">
         <div
           v-for="node in filteredNodes"
@@ -63,7 +63,7 @@
             <span class="node-category-tag" :style="{ backgroundColor: (categoryConfig[node.category]?.color || '#667eea') + '20', color: categoryConfig[node.category]?.color || '#667eea' }">
               {{ categoryConfig[node.category]?.name || node.category }}
             </span>
-            <span class="node-level-tag">阶段{{ node.level }}</span>
+            <span class="node-level-tag">Stage {{ node.level }}</span>
           </div>
         </div>
       </div>
@@ -84,13 +84,13 @@ export default {
       categoryConfig,
       chart: null,
       levelConfig: [
-        { value: 1, label: '入门基础', color: '#43e97b' },
-        { value: 2, label: '工具掌握', color: '#38f9d7' },
-        { value: 3, label: '核心技能', color: '#667eea' },
-        { value: 4, label: '算法进阶', color: '#f093fb' },
-        { value: 5, label: '高级应用', color: '#f5af19' },
-        { value: 6, label: '前沿研究', color: '#fa709a' },
-        { value: 7, label: '顶级前沿', color: '#e44d26' }
+        { value: 1, label: 'Fundamentals', color: '#43e97b' },
+        { value: 2, label: 'Tool Mastery', color: '#38f9d7' },
+        { value: 3, label: 'Core Skills', color: '#667eea' },
+        { value: 4, label: 'Advanced Algorithms', color: '#f093fb' },
+        { value: 5, label: 'Advanced Applications', color: '#f5af19' },
+        { value: 6, label: 'Frontier Research', color: '#fa709a' },
+        { value: 7, label: 'Cutting Edge', color: '#e44d26' }
       ]
     }
   },
@@ -235,9 +235,9 @@ export default {
               return `<div style="max-width:280px">
                 <div style="font-size:16px;font-weight:bold;margin-bottom:8px;color:${this.getLevelColor(d.level)}">${d.name}</div>
                 <div style="margin-bottom:6px">${stars}</div>
-                <div style="color:${this.isDark ? '#aaa' : '#6b7280'};margin-bottom:6px">分类: ${catName} | 阶段: ${d.level}</div>
+                <div style="color:${this.isDark ? '#aaa' : '#6b7280'};margin-bottom:6px">Category: ${catName} | Stage: ${d.level}</div>
                 <div style="color:${this.isDark ? '#ccc' : '#888'};line-height:1.5">${d.description.substring(0, 80)}...</div>
-                <div style="color:#667eea;margin-top:8px">点击查看详情 →</div>
+                <div style="color:#667eea;margin-top:8px">Click for details →</div>
               </div>`
             }
             return ''

@@ -6,40 +6,40 @@
           <div class="logo-bg" style="background-image: url('../../static/img/touxiang.png');"></div>
           <img src="../../static/img/logokuang.png" alt="Logo" class="logo-frame">
         </div>
-        <h2>教师助手系统</h2>
-        <p class="subtitle">{{ isLoginMode ? '账号登录' : '新用户注册' }}</p>
+        <h2>AI Teaching Assistant System</h2>
+        <p class="subtitle">{{ isLoginMode ? 'Sign In' : 'Sign Up' }}</p>
       </div>
       
       <form @submit.prevent="handleSubmit" class="login-form">
         <div class="form-group">
-          <label for="username">用户名</label>
+          <label for="username">Username</label>
           <input 
             type="text" 
             id="username" 
             v-model="form.username" 
-            placeholder="请输入用户名"
+            placeholder="Enter your username"
             required
           >
         </div>
         
         <div class="form-group">
-          <label for="password">密码</label>
+          <label for="password">Password</label>
           <input 
             type="password" 
             id="password" 
             v-model="form.password" 
-            placeholder="请输入密码"
+            placeholder="Enter your password"
             required
           >
         </div>
 
         <div class="form-group" v-if="!isLoginMode">
-          <label for="confirmPassword">确认密码</label>
+          <label for="confirmPassword">Confirm Password</label>
           <input 
             type="password" 
             id="confirmPassword" 
             v-model="form.confirmPassword" 
-            placeholder="请再次输入密码"
+            placeholder="Enter your password again"
             required
           >
         </div>
@@ -53,21 +53,21 @@
         </div>
         
         <button type="submit" class="login-button" :disabled="isLoading">
-          {{ isLoading ? '处理中...' : (isLoginMode ? '登录' : '立即注册') }}
+          {{ isLoading ? 'Processing...' : (isLoginMode ? 'Sign In' : 'Sign Up') }}
         </button>
       </form>
       
       <div class="toggle-mode">
         <span v-if="isLoginMode">
-          还没有账号？ <a href="#" @click.prevent="toggleMode">去注册</a>
+          Don't have an account? <a href="#" @click.prevent="toggleMode">Sign Up</a>
         </span>
         <span v-else>
-          已有账号？ <a href="#" @click.prevent="toggleMode">去登录</a>
+          Already have an account? <a href="#" @click.prevent="toggleMode">Sign In</a>
         </span>
       </div>
 
       <div class="login-footer">
-        <p>教师助手系统 © 2026</p>
+        <p>AI Teaching Assistant System © 2026</p>
       </div>
     </div>
   </div>
@@ -109,7 +109,7 @@ const handleSubmit = async () => {
   successMessage.value = ''
   
   if (!isLoginMode.value && form.password !== form.confirmPassword) {
-    errorMessage.value = '两次输入的密码不一致'
+    errorMessage.value = 'Passwords do not match'
     return
   }
 
@@ -126,11 +126,11 @@ const handleSubmit = async () => {
     
     if (response.data.success) {
       if (isLoginMode.value) {
-        console.log('登录成功:', response.data.user)
+        console.log('Login successful:', response.data.user)
         userStore.login(response.data.user)
         router.push('/') 
       } else {
-        successMessage.value = '注册成功！请登录。'
+        successMessage.value = 'Registration successful! Please sign in.'
         setTimeout(() => {
           toggleMode()
           form.password = ''
@@ -138,11 +138,11 @@ const handleSubmit = async () => {
       }
     }
   } catch (error) {
-    console.error('请求失败:', error)
+    console.error('Request failed:', error)
     if (error.response && error.response.data) {
-      errorMessage.value = error.response.data.message || '操作失败'
+      errorMessage.value = error.response.data.message || 'Operation Failed'
     } else {
-      errorMessage.value = '网络连接错误，请检查后端服务是否启动'
+      errorMessage.value = 'Network connection error. Please check if the backend service is running'
     }
   } finally {
     isLoading.value = false
@@ -151,14 +151,14 @@ const handleSubmit = async () => {
 </script>
 
 <style scoped>
-/* 保持原有样式，新增部分辅助样式 */
+/* Keep original styles, add auxiliary styles */
 .login-container {
   height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* 使用你的背景图 */
+  /* Use your background image */
   background-image: url('../../assets/background.jpg'); 
   background-size: cover;
   background-position: center;

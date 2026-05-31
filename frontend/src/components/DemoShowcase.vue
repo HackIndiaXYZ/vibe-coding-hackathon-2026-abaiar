@@ -5,10 +5,10 @@
         <svg viewBox="0 0 1024 1024" width="20" height="20">
           <path d="M669.6 849.6L368.8 548.8c-12-12-12-32 0-44l300.8-300.8c12-12 32-12 44 0s12 32 0 44L436 526.8l277.6 278.8c12 12 12 32 0 44-6 6-14 8.4-22 8.4s-16-2.8-22-8.4z" fill="currentColor"/>
         </svg>
-        返回主页
+        Back to Home
       </button>
-      <h1 class="page-title">看效果</h1>
-      <p class="page-subtitle">亲身体验AI技术的魅力，交互式演示让你直观理解人工智能</p>
+      <h1 class="page-title">Experience</h1>
+      <p class="page-subtitle">Experience the power of AI technology firsthand — interactive demos for intuitive understanding</p>
     </div>
 
     <div class="demos-grid">
@@ -21,20 +21,20 @@
                 class="digit-path"/>
             </svg>
             <div class="digit-result">
-              <span class="digit-label">识别结果</span>
+              <span class="digit-label">Recognition Result</span>
               <span class="digit-value">3</span>
             </div>
           </div>
         </div>
         <div class="demo-info">
-          <div class="demo-badge digit-badge">计算机视觉 · GPU加速</div>
-          <h2 class="demo-title">手写数字识别</h2>
-          <p class="demo-desc">在画板上书写数字，AI实时识别你写的内容。基于CNN卷积神经网络，使用MNIST数据集训练，NVIDIA RTX 3090 GPU加速推理。</p>
+          <div class="demo-badge digit-badge">Computer Vision · GPU Accelerated</div>
+          <h2 class="demo-title">Handwritten Digit Recognition</h2>
+          <p class="demo-desc">Write digits on the canvas and AI recognizes them in real-time. Based on CNN convolutional neural network, trained on MNIST dataset, with NVIDIA RTX 3090 GPU-accelerated inference.</p>
           <div class="demo-tags">
             <span class="demo-tag">CNN</span>
             <span class="demo-tag">MNIST</span>
-            <span class="demo-tag">GPU加速</span>
-            <span class="demo-tag">实时交互</span>
+            <span class="demo-tag">GPU Accelerated</span>
+            <span class="demo-tag">Real-time Interactive</span>
           </div>
           <div class="demo-tech-stack">
             <span class="tech-item">PyTorch</span>
@@ -49,40 +49,40 @@
     </div>
 
     <div class="coming-soon-section">
-      <h3 class="section-title">更多演示即将上线</h3>
+      <h3 class="section-title">More demos coming soon</h3>
       <div class="coming-grid">
         <div class="coming-card">
           <span class="coming-icon">🖼️</span>
-          <span class="coming-name">图像风格迁移</span>
-          <span class="coming-status">开发中</span>
+          <span class="coming-name">Image Style Transfer</span>
+          <span class="coming-status">In Development</span>
         </div>
         <div class="coming-card">
           <span class="coming-icon">🧠</span>
-          <span class="coming-name">神经网络可视化</span>
-          <span class="coming-status">开发中</span>
+          <span class="coming-name">Neural Network Visualization</span>
+          <span class="coming-status">In Development</span>
         </div>
         <div class="coming-card">
           <span class="coming-icon">🗣️</span>
-          <span class="coming-name">语音识别</span>
-          <span class="coming-status">规划中</span>
+          <span class="coming-name">Speech Recognition</span>
+          <span class="coming-status">Planned</span>
         </div>
       </div>
     </div>
 
     <div class="tips-section">
-      <h3 class="tips-title">使用提示</h3>
+      <h3 class="tips-title">Usage Tips</h3>
       <div class="tips-grid">
         <div class="tip-item">
           <span class="tip-icon">💡</span>
-          <span>手写数字识别使用真实CNN模型，GPU加速推理</span>
+          <span>Handwritten digit recognition uses a real CNN model with GPU-accelerated inference</span>
         </div>
         <div class="tip-item">
           <span class="tip-icon">🎯</span>
-          <span>尽量在画板中央书写，笔画清晰效果更佳</span>
+          <span>Write in the center of the canvas for best results with clear strokes</span>
         </div>
         <div class="tip-item">
           <span class="tip-icon">📚</span>
-          <span>演示中包含原理解释，帮助你理解AI技术</span>
+          <span>Demos include principle explanations to help you understand AI technology</span>
         </div>
       </div>
     </div>

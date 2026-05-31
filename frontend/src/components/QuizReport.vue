@@ -5,10 +5,10 @@
         <svg viewBox="0 0 1024 1024" width="20" height="20">
           <path d="M669.6 849.6L368.8 548.8c-12-12-12-32 0-44l300.8-300.8c12-12 32-12 44 0s12 32 0 44L436 526.8l277.6 278.8c12 12 12 32 0 44-6 6-14 8.4-22 8.4s-16-2.8-22-8.4z" fill="currentColor"/>
         </svg>
-        返回练习
+        Back to Practice
       </button>
-      <h1 class="page-title">测验报告</h1>
-      <p class="page-subtitle">AI智能分析你的学习表现，助力持续进步</p>
+      <h1 class="page-title">Quiz Report</h1>
+      <p class="page-subtitle">AI-powered analysis of your learning performance for continuous improvement</p>
     </div>
 
     <div class="report-content" v-if="results">
@@ -32,7 +32,7 @@
           </svg>
           <div class="score-text">
             <span class="score-percent">{{ percentage }}%</span>
-            <span class="score-label">得分率</span>
+            <span class="score-label">Score Rate</span>
           </div>
         </div>
         <div class="score-details">
@@ -44,11 +44,11 @@
           <div class="score-stats">
             <div class="stat-item">
               <span class="stat-icon correct-icon">✓</span>
-              <span class="stat-text">正确 <strong>{{ correctCount }}</strong> / {{ results.questions ? results.questions.length : 0 }}</span>
+              <span class="stat-text">Correct <strong>{{ correctCount }}</strong> / {{ results.questions ? results.questions.length : 0 }}</span>
             </div>
             <div class="stat-item">
               <span class="stat-icon accuracy-icon">%</span>
-              <span class="stat-text">正确率 <strong>{{ percentage }}%</strong></span>
+              <span class="stat-text">Accuracy <strong>{{ percentage }}%</strong></span>
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@
             <path d="M512 256c-141.4 0-256 114.6-256 256s114.6 256 256 256 256-114.6 256-256-114.6-256-256-256z m0 448c-106 0-192-86-192-192s86-192 192-192 192 86 192 192-86 192-192 192z" fill="currentColor"/>
             <path d="M464 336a48 48 0 1 1 96 0 48 48 0 1 1-96 0z m72 112h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V456c0-4.4-3.6-8-8-8z" fill="currentColor"/>
           </svg>
-          AI 学习报告
+          AI Learning Report
         </h2>
 
         <div class="report-summary" v-if="report.summary">
@@ -72,7 +72,7 @@
           <div class="report-card weak-points" v-if="report.weak_points && report.weak_points.length">
             <h3 class="card-title">
               <span class="card-indicator red"></span>
-              薄弱环节
+              Weak Areas
             </h3>
             <ul class="card-list">
               <li v-for="(item, index) in report.weak_points" :key="'weak-' + index">{{ item }}</li>
@@ -82,7 +82,7 @@
           <div class="report-card suggestions" v-if="report.suggestions && report.suggestions.length">
             <h3 class="card-title">
               <span class="card-indicator green"></span>
-              改进建议
+              Improvement Suggestions
             </h3>
             <ul class="card-list">
               <li v-for="(item, index) in report.suggestions" :key="'sug-' + index">{{ item }}</li>
@@ -92,7 +92,7 @@
           <div class="report-card knowledge-gaps" v-if="report.knowledge_gaps && report.knowledge_gaps.length">
             <h3 class="card-title">
               <span class="card-indicator yellow"></span>
-              知识盲区
+              Knowledge Gaps
             </h3>
             <ul class="card-list">
               <li v-for="(item, index) in report.knowledge_gaps" :key="'gap-' + index">{{ item }}</li>
@@ -102,7 +102,7 @@
           <div class="report-card next-steps" v-if="report.next_steps && report.next_steps.length">
             <h3 class="card-title">
               <span class="card-indicator blue"></span>
-              下一步行动
+              Next Steps
             </h3>
             <ul class="card-list">
               <li v-for="(item, index) in report.next_steps" :key="'step-' + index">{{ item }}</li>
@@ -120,7 +120,7 @@
             <path d="M340 400h48c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8z" fill="currentColor"/>
             <path d="M340 544h48c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8z" fill="currentColor"/>
           </svg>
-          详细答题结果
+          Detailed Results
         </h2>
 
         <div class="question-list">
@@ -159,23 +159,23 @@
             <transition name="expand">
               <div class="question-detail" v-if="expandedQuestions[index]">
                 <div class="detail-row">
-                  <span class="detail-label">题目</span>
+                  <span class="detail-label">Question</span>
                   <span class="detail-value question-full-text">{{ q.question }}</span>
                 </div>
                 <div class="detail-row">
-                  <span class="detail-label">你的答案</span>
-                  <span class="detail-value" :class="isCorrect(q) ? 'answer-correct' : 'answer-incorrect'">{{ q.user_answer || '未作答' }}</span>
+                  <span class="detail-label">Your Answer</span>
+                  <span class="detail-value" :class="isCorrect(q) ? 'answer-correct' : 'answer-incorrect'">{{ q.user_answer || 'Not Answered' }}</span>
                 </div>
                 <div class="detail-row" v-if="!isCorrect(q)">
-                  <span class="detail-label">正确答案</span>
+                  <span class="detail-label">Correct Answer</span>
                   <span class="detail-value answer-correct">{{ q.correct_answer }}</span>
                 </div>
                 <div class="detail-row">
-                  <span class="detail-label">得分</span>
+                  <span class="detail-label">Score</span>
                   <span class="detail-value">{{ q.score || 0 }} / {{ q.max_score || 0 }}</span>
                 </div>
                 <div class="detail-row explanation-row" v-if="q.explanation">
-                  <span class="detail-label">解析</span>
+                  <span class="detail-label">Explanation</span>
                   <span class="detail-value explanation-text">{{ q.explanation }}</span>
                 </div>
               </div>
@@ -190,8 +190,8 @@
             <path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64z m0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" fill="currentColor"/>
             <path d="M464 336a48 48 0 1 1 96 0 48 48 0 1 1-96 0z m72 112h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V456c0-4.4-3.6-8-8-8z" fill="currentColor"/>
           </svg>
-          错题汇总
-          <span class="wrong-count">共 {{ wrongQuestions.length }} 题</span>
+          Incorrect Questions Summary
+          <span class="wrong-count">{{ wrongQuestions.length }} questions</span>
         </h2>
 
         <div class="wrong-list">
@@ -206,11 +206,11 @@
             </div>
             <div class="wrong-item-body">
               <div class="wrong-answer-row">
-                <span class="wrong-label">你的答案：</span>
-                <span class="wrong-user-answer">{{ q.user_answer || '未作答' }}</span>
+                <span class="wrong-label">Your Answer: </span>
+                <span class="wrong-user-answer">{{ q.user_answer || 'Not Answered' }}</span>
               </div>
               <div class="wrong-answer-row">
-                <span class="wrong-label">正确答案：</span>
+                <span class="wrong-label">Correct Answer: </span>
                 <span class="wrong-correct-answer">{{ q.correct_answer }}</span>
               </div>
             </div>
@@ -225,20 +225,20 @@
             <path d="M492 400h184c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8H492c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8z" fill="currentColor"/>
             <path d="M340 400h48c4.4 0 8-3.6 8-8v-48c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8v48c0 4.4 3.6 8 8 8z" fill="currentColor"/>
           </svg>
-          再做一次
+          Try Again
         </button>
         <button class="action-btn feedback-btn" @click="$router.push('/feedback')">
           <svg viewBox="0 0 1024 1024" width="18" height="18">
             <path d="M512 128c-212.1 0-384 171.9-384 384s171.9 384 384 384 384-171.9 384-384-171.9-384-384-384z m0 704c-176.7 0-320-143.3-320-320s143.3-320 320-320 320 143.3 320 320-143.3 320-320 320z" fill="currentColor"/>
             <path d="M464 384a48 48 0 1 1 96 0 48 48 0 1 1-96 0z m72 112h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V504c0-4.4-3.6-8-8-8z" fill="currentColor"/>
           </svg>
-          查看反馈
+          View Feedback
         </button>
         <button class="action-btn home-btn" @click="$router.push('/')">
           <svg viewBox="0 0 1024 1024" width="18" height="18">
             <path d="M946.5 505L534.6 93.4c-12.5-12.5-32.7-12.5-45.2 0L77.5 505c-12 12-18.8 28.3-18.8 45.3 0 35.3 28.6 63.9 63.9 63.9h42.5V880c0 17.7 14.3 32 32 32h186.7c17.7 0 32-14.3 32-32v-186h161.3v186c0 17.7 14.3 32 32 32h186.7c17.7 0 32-14.3 32-32V614.2H901.4c35.3 0 63.9-28.6 63.9-63.9 0-17-6.7-33.3-18.8-45.3z" fill="currentColor"/>
           </svg>
-          返回首页
+          Back to Home
         </button>
       </div>
     </div>
@@ -249,9 +249,9 @@
           <path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64z m0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" fill="currentColor"/>
           <path d="M464 336a48 48 0 1 1 96 0 48 48 0 1 1-96 0z m72 112h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V456c0-4.4-3.6-8-8-8z" fill="currentColor"/>
         </svg>
-        <h2>暂无测验数据</h2>
-        <p>请先完成一次测验</p>
-        <button class="back-btn" @click="$router.push('/practice')">前往练习</button>
+        <h2>No quiz data available</h2>
+        <p>Please complete a quiz first</p>
+        <button class="back-btn" @click="$router.push('/practice')">Go to Practice</button>
       </div>
     </div>
   </div>
@@ -310,14 +310,14 @@ export default {
     },
     getTypeLabel(type) {
       const labels = {
-        choice: '选择',
-        code_understanding: '代码理解',
-        short_answer: '简答',
-        fill: '填空',
-        code: '编程',
-        true_false: '判断'
+        choice: 'Choice',
+        code_understanding: 'Code',
+        short_answer: 'Short Answer',
+        fill: 'Fill-in',
+        code: 'Programming',
+        true_false: 'True/False'
       }
-      return labels[type] || type || '题目'
+      return labels[type] || type || 'Question'
     },
     getTypeClass(type) {
       const classes = {
@@ -349,7 +349,7 @@ export default {
           }
         }
       } catch (e) {
-        console.error('解析测验数据失败:', e)
+        console.error('Failed to parse quiz data:', e)
       }
     },
     animateScore() {

@@ -5,10 +5,10 @@
         <svg viewBox="0 0 1024 1024" width="20" height="20">
           <path d="M669.6 849.6L368.8 548.8c-12-12-12-32 0-44l300.8-300.8c12-12 32-12 44 0s12 32 0 44L436 526.8l277.6 278.8c12 12 12 32 0 44-6 6-14 8.4-22 8.4s-16-2.8-22-8.4z" fill="currentColor"/>
         </svg>
-        返回练习
+        Back to Practice
       </button>
       <div class="header-center">
-        <h1 class="page-title">动手做 · 答题</h1>
+        <h1 class="page-title">Practice · Quiz</h1>
         <div class="timer">
           <svg viewBox="0 0 1024 1024" width="16" height="16">
             <path d="M512 128c-211.2 0-384 172.8-384 384s172.8 384 384 384 384-172.8 384-384-172.8-384-384-384z m0 704c-176 0-320-144-320-320s144-320 320-320 320 144 320 320-144 320-320 320z" fill="currentColor"/>
@@ -22,7 +22,7 @@
 
     <div class="progress-section">
       <div class="progress-info">
-        <span class="progress-text">第 {{ currentIndex + 1 }} 题 / 共 {{ questions.length }} 题</span>
+        <span class="progress-text">Question {{ currentIndex + 1 }} / {{ questions.length }}</span>
         <span class="progress-percent">{{ progressPercent }}%</span>
       </div>
       <div class="progress-bar">
@@ -51,7 +51,7 @@
                 type="text"
                 class="code-input"
                 v-model="answers[currentQuestion.id]"
-                placeholder="请输入你的答案..."
+                placeholder="Enter your answer..."
                 @input="onAnswerChange"
               />
             </div>
@@ -73,11 +73,11 @@
               <textarea
                 class="answer-textarea"
                 v-model="answers[currentQuestion.id]"
-                placeholder="请输入你的回答..."
+                placeholder="Enter your response..."
                 @input="onAnswerChange"
                 rows="6"
               ></textarea>
-              <div class="char-count">{{ currentAnswerLength }} 字</div>
+              <div class="char-count">{{ currentAnswerLength }} chars</div>
             </div>
           </div>
         </div>
@@ -89,13 +89,13 @@
         <svg viewBox="0 0 1024 1024" width="16" height="16">
           <path d="M669.6 849.6L368.8 548.8c-12-12-12-32 0-44l300.8-300.8c12-12 32-12 44 0s12 32 0 44L436 526.8l277.6 278.8c12 12 12 32 0 44-6 6-14 8.4-22 8.4s-16-2.8-22-8.4z" fill="currentColor"/>
         </svg>
-        上一题
+        Previous
       </button>
       <button class="nav-btn submit-btn" @click="showConfirmDialog = true">
-        提交答案
+        Submit Answer
       </button>
       <button class="nav-btn next-btn" :disabled="currentIndex === questions.length - 1" @click="nextQuestion">
-        下一题
+        Next
         <svg viewBox="0 0 1024 1024" width="16" height="16">
           <path d="M354.4 174.4l300.8 300.8c12 12 12 32 0 44L354.4 820c-12 12-32 12-44 0s-12-32 0-44L588 477.2 310.4 218.4c-12-12-12-32 0-44s32-12 44 0z" fill="currentColor"/>
         </svg>
@@ -111,14 +111,14 @@
             <path d="M512 420c-17.7 0-32 14.3-32 32v220c0 17.7 14.3 32 32 32s32-14.3 32-32V452c0-17.7-14.3-32-32-32z" fill="#667eea"/>
           </svg>
         </div>
-        <h3 class="confirm-title">确认提交？</h3>
+        <h3 class="confirm-title">Confirm Submission?</h3>
         <p class="confirm-message">
-          你已完成 <span class="highlight">{{ answeredCount }}</span> / {{ questions.length }} 题，
-          未作答的题目将记为空。
+          You have completed <span class="highlight">{{ answeredCount }}</span> / {{ questions.length }} questions.
+          Unanswered questions will be marked as blank.
         </p>
         <div class="confirm-actions">
-          <button class="confirm-btn cancel" @click="showConfirmDialog = false">继续答题</button>
-          <button class="confirm-btn ok" @click="submitAnswers">确认提交</button>
+          <button class="confirm-btn cancel" @click="showConfirmDialog = false">Continue</button>
+          <button class="confirm-btn ok" @click="submitAnswers">Confirm</button>
         </div>
       </div>
     </div>
@@ -126,7 +126,7 @@
     <div class="loading-overlay" v-if="submitting">
       <div class="loading-spinner">
         <div class="spinner-ring"></div>
-        <p class="loading-text">正在提交答案...</p>
+        <p class="loading-text">Submitting answers...</p>
       </div>
     </div>
   </div>
@@ -214,7 +214,7 @@ export default {
           this.quizMeta.topic = parsed.topic || ''
         }
       } catch (e) {
-        console.error('解析题目数据失败:', e)
+        console.error('Failed to parse question data:', e)
       }
     },
     startTimer() {
@@ -233,9 +233,9 @@ export default {
     },
     typeLabel(type) {
       const map = {
-        code_understanding: '代码理解',
-        choice: '选择题',
-        short_answer: '简答题'
+        code_understanding: 'Code Comprehension',
+        choice: 'Multiple Choice',
+        short_answer: 'Short Answer'
       }
       return map[type] || type
     },
@@ -299,13 +299,13 @@ export default {
             }
           })
         } else {
-          alert('提交失败：' + (submitData.message || '返回数据格式异常'))
+          alert('Submission failed: ' + (submitData.message || 'Unexpected response format'))
           this.startTimer()
         }
       } catch (error) {
         this.submitting = false
-        console.error('提交答案失败:', error)
-        alert('提交失败，请重试')
+        console.error('Failed to submit answers:', error)
+        alert('Submission failed. Please try again.')
         this.startTimer()
       }
     }

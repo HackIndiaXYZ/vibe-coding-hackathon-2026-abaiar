@@ -32,6 +32,23 @@
 
 ---
 
+## 🏆 HackIndia Vibe Coding Hackathon 2026
+
+| 项目 | 信息 |
+|------|------|
+| **黑客松** | HackIndia Vibe Coding Hackathon 2026 |
+| **团队** | Abaiar |
+| **赛道** | 🎓 Student Innovation（学生创新） |
+| **时长** | 10 天（2026 年 6 月 1 日 – 6 月 10 日） |
+| **形式** | 线上 |
+| **提交仓库** | [vibe-coding-hackathon-2026-abaiar](https://github.com/HackIndiaXYZ/vibe-coding-hackathon-2026-abaiar) |
+
+### 为什么本项目符合学生创新赛道
+
+OmniAI Edu 直击教育领域的**真实痛点**：缺乏面向学生的易用、实践型 AI 通识教育平台。传统 AI 教育依赖被动听讲和理论内容——学生很少能在统一环境中**体验、实践和获取反馈**。我们的平台通过构建完整的**学知识 → 看效果 → 动手做 → 得反馈**闭环，让 AI 教育变得互动化、可量化和个性化。
+
+---
+
 ## 📖 项目概述
 
 **OmniAI Edu** 是一款面向人工智能通识教育的一站式实践平台，围绕 **学知识、看效果、动手做、得反馈** 四大核心模块构建完整的学习闭环。平台深度集成 [OpenMAIC](https://github.com/THU-MAIC/OpenMAIC) 多智能体互动课堂引擎，并内置手写数字识别、AI 智能出题与判分、学习数据分析等功能，为 AI 通识教育提供从理论到实践的全链路支持。
@@ -44,6 +61,64 @@
 - 🤖 **智能助教「师小助」** — 基于 LangChain 的 Tool-Calling 智能体，可查询学习数据并个性化辅导
 - 🔑 **统一 API 管理** — 一站式管理 15+ LLM 服务商的 API Key，自动同步环境变量
 - 🌙 **暗色模式** — 全平台支持明暗主题切换
+
+---
+
+## 🔥 如何回应评审标准
+
+### 💡 创新性
+
+OmniAI Edu 引入了现有 AI 教育平台所缺乏的**四模块闭环学习模型**（学知识 → 看效果 → 动手做 → 得反馈）。核心创新包括：
+
+- **逐层 CNN 可视化** — 学生不只看到结果，而是逐步观察整个推理流水线（预处理 → 卷积 → 分类 → 输出），让 AI 的"黑盒"变得透明。
+- **LangChain Tool-Calling AI 助教** — "师小助"不是简单的聊天机器人，而是一个工具调用智能体，能查询实时学习统计、练习历史、错题和排行榜数据，提供上下文感知的个性化指导。
+- **统一 API 管理** — 单一界面配置 15+ AI 服务商，覆盖 LLM、TTS、ASR、图像生成、视频生成、PDF 解析和网络搜索，消除碎片化配置体验。
+
+### ⚡ 执行速度
+
+本项目完全使用 **Vibe Coding** 方式，借助 AI 辅助开发工具（Trae AI、ChatGPT、Claude）在黑客松期间设计并实现了包含 5 个后端服务和 12+ 前端组件的全栈平台。架构展示了快速原型能力：
+
+- **5 个独立微服务**并行运行，配备统一启动器
+- **12+ Vue 3 组件**，统一设计语言，支持暗色模式
+- **完整 CRUD 操作**，MongoDB 持久化 + 内存回退
+- **实时 GPU 推理**，自动 CPU 回退
+
+### 🧠 AI 使用
+
+AI 不只是功能——它是平台的**核心引擎**：
+
+| AI 用途 | 描述 |
+|---------|------|
+| **Vibe Coding** | 整个项目使用 AI 编程工具构建（Trae AI、ChatGPT、Claude） |
+| **LLM 驱动出题** | 通义千问大模型生成选择题、代码理解题和简答题，自动调节难度 |
+| **AI 评分与报告** | LLM 评估开放性答案，生成个性化学习报告，分析薄弱环节 |
+| **LangChain Tool-Calling 智能体** | "师小助" AI 助教使用 LangChain 工具调用范式查询实时数据并提供上下文响应 |
+| **CNN 推理** | PyTorch CNN 模型实现手写数字识别，支持 GPU 加速 |
+| **OpenMAIC 多智能体课堂** | AI 教师 + AI 同学智能体提供互动式课程，含幻灯片、测验和模拟实验 |
+
+### 💡 问题解决
+
+**问题：** AI 通识教育面临三大鸿沟：
+1. **理论-实践鸿沟** — 学生学习 AI 概念但无法体验或应用
+2. **反馈鸿沟** — 缺乏个性化、数据驱动的学习进度反馈
+3. **可及性鸿沟** — AI 工具碎片化，学生需要多个平台才能学习、练习和获取反馈
+
+**解决方案：** OmniAI Edu 的四模块闭环：
+1. **学知识** — 系统化知识路线图，从 Python 基础到前沿 AI 研究（30+ 知识节点）
+2. **看效果** — 交互式 AI 演示（手写数字识别，真实 CNN 模型 + 逐步可视化）
+3. **动手做** — AI 生成测验，3 种题型 × 5 级难度，自动评分
+4. **得反馈** — 五维能力雷达图、AI 学习报告、错题追踪、排行榜
+
+### 🎤 演示与路演
+
+**现场演示流程：**
+1. **登录** → 进入平台
+2. **学知识** → 浏览 AI 知识路线图，探索知识节点的前置知识和关联主题
+3. **看效果** → 在画板书写数字 → 观看实时 CNN 识别与逐层可视化 → 查看 GPU 加速信息
+4. **动手做** → 生成 AI 驱动的练习题 → 作答选择题、代码理解题和简答题
+5. **得反馈** → 查看 AI 分析的测验报告 → 检查五维雷达图 → 复习错题 → 查看排行榜
+6. **AI 助教** → 向"师小助"提问如"什么是 Transformer？"或"查看我的学习统计" → 获取实时数据支撑的回答
+7. **智慧课堂** → 启动 OpenMAIC → 生成 AI 驱动的互动课程
 
 ---
 
@@ -129,6 +204,7 @@ OmniAI Edu/
 │   │   │   ├── KnowledgeDetail.vue #  知识点详情
 │   │   │   ├── DemoShowcase.vue #     效果展示
 │   │   │   ├── DigitRecognizer.vue #  手写数字识别
+│   │   │   ├── RecognitionExplanation.vue # CNN 逐步可视化
 │   │   │   ├── PracticePage.vue #     练习页面
 │   │   │   ├── QuizPage.vue     #     答题页面
 │   │   │   ├── QuizReport.vue   #     答题报告
@@ -176,8 +252,8 @@ OmniAI Edu/
 ### 1. 克隆项目
 
 ```bash
-git clone https://github.com/abaiar/OmniAI-Edu.git
-cd OmniAI-Edu
+git clone https://github.com/HackIndiaXYZ/vibe-coding-hackathon-2026-abaiar.git
+cd vibe-coding-hackathon-2026-abaiar
 ```
 
 ### 2. 配置环境变量
@@ -347,6 +423,23 @@ npm run dev
 ### OpenMAIC 智能课堂 (`:5006`)
 
 OpenMAIC 提供完整的 RESTful API，详见 [OpenMAIC 文档](https://github.com/THU-MAIC/OpenMAIC)。
+
+---
+
+## 🛠️ 技术栈
+
+| 层级 | 技术 | 用途 |
+|------|------|------|
+| **前端** | Vue 3 + Pinia | SPA 响应式状态管理 |
+| **前端** | ECharts | 雷达图与数据可视化 |
+| **前端** | Marked + highlight.js + KaTeX | AI 对话中的 Markdown 渲染 |
+| **后端** | Flask | REST API 服务 |
+| **后端** | PyTorch + CUDA | CNN 推理与 GPU 加速 |
+| **后端** | LangChain | Tool-Calling AI 智能体 |
+| **后端** | MongoDB | 数据持久化，支持内存回退 |
+| **课堂** | Next.js 16 + React 19 | OpenMAIC 多智能体课堂 |
+| **通信** | SSE (Server-Sent Events) | AI 对话流式响应 |
+| **AI 模型** | Qwen、OpenAI、Anthropic 等 | 出题、评分、辅导 |
 
 ---
 

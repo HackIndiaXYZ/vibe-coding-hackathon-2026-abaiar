@@ -32,6 +32,23 @@
 
 ---
 
+## 🏆 HackIndia Vibe Coding Hackathon 2026
+
+| Detail | Information |
+|--------|-------------|
+| **Hackathon** | HackIndia Vibe Coding Hackathon 2026 |
+| **Team** | Abaiar |
+| **Track** | 🎓 Student Innovation |
+| **Duration** | 10 Days (June 1 – June 10, 2026) |
+| **Format** | Online |
+| **Repository** | [vibe-coding-hackathon-2026-abaiar](https://github.com/HackIndiaXYZ/vibe-coding-hackathon-2026-abaiar) |
+
+### Why This Project Fits the Student Innovation Track
+
+OmniAI Edu directly addresses a **real-world problem in education**: the lack of accessible, hands-on AI literacy platforms for students. Traditional AI education relies on passive lectures and theoretical content — students rarely get to **experience, practice, and receive feedback** on AI concepts in an integrated environment. Our platform solves this by creating a complete **Learn → Experience → Practice → Feedback** loop, making AI education interactive, measurable, and personalized.
+
+---
+
 ## 📖 Overview
 
 **OmniAI Edu** is an all-in-one practice platform for AI literacy education, built around four core modules: **Learn, Experience, Practice, and Feedback** — forming a complete learning loop. The platform deeply integrates the [OpenMAIC](https://github.com/THU-MAIC/OpenMAIC) multi-agent interactive classroom engine and includes built-in handwritten digit recognition, AI-powered quiz generation and grading, learning data analytics, and more — providing end-to-end support from theory to practice in AI education.
@@ -44,6 +61,64 @@
 - 🤖 **AI Teaching Assistant "Shi Xiao Zhu"** — LangChain-based Tool-Calling agent that queries learning data and provides personalized tutoring
 - 🔑 **Unified API Management** — One-stop management of 15+ LLM provider API keys with automatic environment variable synchronization
 - 🌙 **Dark Mode** — Full platform support for light/dark theme switching
+
+---
+
+## 🔥 How We Address the Judging Criteria
+
+### 💡 Innovation
+
+OmniAI Edu introduces a **4-module closed-loop learning model** (Learn → Experience → Practice → Feedback) that is absent from existing AI education platforms. Key innovations include:
+
+- **Layer-by-layer CNN visualization** — Students don't just see a result; they watch the entire inference pipeline unfold step by step (preprocessing → convolution → classification → output), making the "black box" of AI transparent.
+- **LangChain Tool-Calling AI Tutor** — "Shi Xiao Zhu" is not a simple chatbot; it's a tool-calling agent that can query real-time learning statistics, practice history, wrong questions, and leaderboard data to provide context-aware, personalized guidance.
+- **Unified API Management** — A single interface to configure 15+ AI providers across LLM, TTS, ASR, image generation, video generation, PDF parsing, and web search — eliminating the fragmented configuration experience.
+
+### ⚡ Execution Speed
+
+Built entirely using **Vibe Coding** with AI-assisted development tools (Trae AI, ChatGPT, Claude), this full-stack platform with 5 backend services and 12+ frontend components was designed and implemented within the hackathon timeframe. The architecture demonstrates rapid prototyping with:
+
+- **5 independent microservices** running in parallel with a unified launcher
+- **12+ Vue 3 components** with consistent design language and dark mode support
+- **Full CRUD operations** with MongoDB persistence and in-memory fallback
+- **Real-time GPU inference** with automatic CPU fallback
+
+### 🧠 Use of AI
+
+AI is not just a feature — it's the **core engine** of the platform:
+
+| AI Usage | Description |
+|----------|-------------|
+| **Vibe Coding** | Entire project built using AI-powered coding tools (Trae AI, ChatGPT, Claude) |
+| **LLM-Powered Quiz Generation** | Qwen LLM generates multiple-choice, code comprehension, and short-answer questions with automatic difficulty scaling |
+| **AI Grading & Reports** | LLM evaluates open-ended answers and generates personalized learning reports with weak-area analysis |
+| **LangChain Tool-Calling Agent** | "Shi Xiao Zhu" AI tutor uses LangChain's tool-calling paradigm to query real-time data and provide contextual responses |
+| **CNN Inference** | PyTorch CNN model for handwritten digit recognition with GPU acceleration |
+| **OpenMAIC Multi-Agent Classroom** | AI teacher + AI classmate agents deliver interactive lessons with slides, quizzes, and simulations |
+
+### 💡 Problem Solving
+
+**Problem:** AI literacy education suffers from three gaps:
+1. **Theory-Practice Gap** — Students learn AI concepts but can't experience or apply them
+2. **Feedback Gap** — No personalized, data-driven feedback on learning progress
+3. **Accessibility Gap** — AI tools are fragmented; students need multiple platforms to learn, practice, and get feedback
+
+**Solution:** OmniAI Edu's 4-module closed loop:
+1. **Learn** — Systematic knowledge roadmap from Python basics to frontier AI research (30+ knowledge nodes)
+2. **Experience** — Interactive AI demos (handwritten digit recognition with real CNN model and step-by-step visualization)
+3. **Practice** — AI-generated quizzes across 3 question types and 5 difficulty levels, with automatic grading
+4. **Feedback** — 5-dimensional ability radar chart, AI learning reports, wrong question tracking, and leaderboard
+
+### 🎤 Demo & Pitch
+
+**Live Demo Flow:**
+1. **Login** → Enter the platform
+2. **Learn** → Browse the AI knowledge roadmap, explore knowledge nodes with prerequisites and related topics
+3. **Experience** → Write a digit on the canvas → Watch real-time CNN recognition with layer-by-layer visualization → See GPU acceleration stats
+4. **Practice** → Generate AI-powered quizzes → Answer multiple-choice, code comprehension, and short-answer questions
+5. **Feedback** → View quiz report with AI analysis → Check 5-dimensional radar chart → Review wrong questions → See leaderboard
+6. **AI Tutor** → Ask "Shi Xiao Zhu" questions like "What is a Transformer?" or "View my learning stats" → Get real-time, data-backed responses
+7. **Smart Classroom** → Launch OpenMAIC → Generate an AI-powered interactive lesson
 
 ---
 
@@ -129,6 +204,7 @@ OmniAI Edu/
 │   │   │   ├── KnowledgeDetail.vue #  Knowledge detail
 │   │   │   ├── DemoShowcase.vue #     Demo showcase
 │   │   │   ├── DigitRecognizer.vue #  Handwritten digit recognition
+│   │   │   ├── RecognitionExplanation.vue # CNN step-by-step visualization
 │   │   │   ├── PracticePage.vue #     Practice page
 │   │   │   ├── QuizPage.vue     #     Quiz page
 │   │   │   ├── QuizReport.vue   #     Quiz report
@@ -176,8 +252,8 @@ OmniAI Edu/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/abaiar/OmniAI-Edu.git
-cd OmniAI-Edu
+git clone https://github.com/HackIndiaXYZ/vibe-coding-hackathon-2026-abaiar.git
+cd vibe-coding-hackathon-2026-abaiar
 ```
 
 ### 2. Configure Environment Variables
@@ -347,6 +423,23 @@ After launching, access the API management interface to configure provider API k
 ### OpenMAIC Smart Classroom (`:5006`)
 
 OpenMAIC provides a comprehensive RESTful API. See the [OpenMAIC documentation](https://github.com/THU-MAIC/OpenMAIC) for details.
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology | Purpose |
+|-------|-----------|---------|
+| **Frontend** | Vue 3 + Pinia | SPA with reactive state management |
+| **Frontend** | ECharts | Radar charts and data visualization |
+| **Frontend** | Marked + highlight.js + KaTeX | Markdown rendering in AI chat |
+| **Backend** | Flask | REST API services |
+| **Backend** | PyTorch + CUDA | CNN inference with GPU acceleration |
+| **Backend** | LangChain | Tool-Calling AI agent |
+| **Backend** | MongoDB | Data persistence with in-memory fallback |
+| **Classroom** | Next.js 16 + React 19 | OpenMAIC multi-agent classroom |
+| **Communication** | SSE (Server-Sent Events) | Streaming AI chat responses |
+| **AI Models** | Qwen, OpenAI, Anthropic, etc. | Quiz generation, grading, tutoring |
 
 ---
 

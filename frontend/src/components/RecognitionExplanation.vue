@@ -5,8 +5,8 @@
         <div class="modal-header">
           <div class="header-left">
             <span class="header-icon">🔬</span>
-            <h2 class="header-title">识别过程详解</h2>
-            <span class="header-badge" v-if="!isLoading && steps.length">{{ steps.length }}个步骤</span>
+            <h2 class="header-title">Recognition Process Details</h2>
+            <span class="header-badge" v-if="!isLoading && steps.length">{{ steps.length }} steps</span>
           </div>
           <button class="close-btn" @click="close">
             <svg viewBox="0 0 1024 1024" width="20" height="20"><path d="M563.8 512l262.5-312.9c4.4-5.2 0.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L512 442.2 295.9 191.7c-3-3.6-7.5-5.7-12.3-5.7H203.8c-6.8 0-10.5 7.9-6.1 13.1L460.2 512 197.7 824.9c-4.4 5.2-0.7 13.1 6.1 13.1h79.8c4.7 0 9.2-2.1 12.3-5.7L512 581.8l216.1 250.5c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z" fill="currentColor"/></svg>
@@ -15,13 +15,13 @@
 
         <div class="loading-state" v-if="isLoading">
           <div class="loading-spinner"></div>
-          <p>正在分析识别过程...</p>
+          <p>Analyzing recognition process...</p>
         </div>
 
         <div class="error-state" v-else-if="errorMessage">
           <div class="error-icon">⚠️</div>
           <p>{{ errorMessage }}</p>
-          <button class="retry-btn" @click="fetchExplanation">重新加载</button>
+          <button class="retry-btn" @click="fetchExplanation">Retry</button>
         </div>
 
         <div class="modal-body" v-else-if="steps.length">
@@ -73,14 +73,14 @@
             <Transition name="detail-slide" mode="out-in">
               <div class="detail-content" :key="currentStep" v-if="currentStepData">
                 <div class="detail-header">
-                  <div class="detail-step-badge">步骤 {{ currentStep + 1 }}/{{ steps.length }}</div>
+                  <div class="detail-step-badge">Step {{ currentStep + 1 }}/{{ steps.length }}</div>
                   <h3 class="detail-title">{{ currentStepData.name }}</h3>
                 </div>
 
                 <p class="detail-desc">{{ currentStepData.description }}</p>
 
                 <div class="preprocessing-pipeline" v-if="preprocessingSteps.length && currentStepData.phase === 'preprocessing'">
-                  <h4 class="detail-section-title">🔄 预处理流水线</h4>
+                  <h4 class="detail-section-title">🔄 Preprocessing Pipeline</h4>
                   <div class="pipeline-track">
                     <template v-for="(ps, idx) in preprocessingSteps" :key="ps.id">
                       <div class="pipeline-step"
@@ -102,32 +102,32 @@
                 </div>
 
                 <div class="detail-image-section" v-if="currentStepData.image">
-                  <h4 class="detail-section-title">📊 当前步骤处理结果</h4>
+                  <h4 class="detail-section-title">📊 Current Step Result</h4>
                   <div class="detail-image-wrapper">
-                    <img :src="'data:image/png;base64,' + currentStepData.image" alt="处理结果" />
+                    <img :src="'data:image/png;base64,' + currentStepData.image" alt="Processing result" />
                   </div>
                   <div class="detail-shape" v-if="currentStepData.shape_info">
-                    数据尺寸：{{ currentStepData.shape_info }}
+                    Data shape: {{ currentStepData.shape_info }}
                   </div>
                 </div>
 
                 <div class="detail-principle-section">
-                  <h4 class="detail-section-title">💡 原理解释</h4>
+                  <h4 class="detail-section-title">💡 Principle Explanation</h4>
                   <p class="detail-principle">{{ currentStepData.principle }}</p>
                 </div>
 
                 <div class="detail-stats-section" v-if="currentStepData.stats">
-                  <h4 class="detail-section-title">📈 数据统计</h4>
+                  <h4 class="detail-section-title">📈 Data Statistics</h4>
                   <div class="stats-grid">
                     <div class="stat-group">
-                      <div class="stat-group-title">归一化前</div>
+                      <div class="stat-group-title">Before Normalization</div>
                       <div class="stat-item" v-for="(val, key) in currentStepData.stats.before" :key="'b'+key">
                         <span class="stat-label">{{ statLabelMap[key] || key }}</span>
                         <span class="stat-value">{{ val }}</span>
                       </div>
                     </div>
                     <div class="stat-group">
-                      <div class="stat-group-title">归一化后</div>
+                      <div class="stat-group-title">After Normalization</div>
                       <div class="stat-item" v-for="(val, key) in currentStepData.stats.after" :key="'a'+key">
                         <span class="stat-label">{{ statLabelMap[key] || key }}</span>
                         <span class="stat-value">{{ val }}</span>
@@ -137,7 +137,7 @@
                 </div>
 
                 <div class="detail-activations-section" v-if="currentStepData.top_activations">
-                  <h4 class="detail-section-title">🔥 Top-10 激活神经元</h4>
+                  <h4 class="detail-section-title">🔥 Top-10 Activated Neurons</h4>
                   <div class="activation-bars">
                     <div class="activation-item" v-for="(act, idx) in currentStepData.top_activations" :key="idx">
                       <span class="act-index">#{{ act.index }}</span>
@@ -150,7 +150,7 @@
                 </div>
 
                 <div class="detail-logits-section" v-if="currentStepData.logits">
-                  <h4 class="detail-section-title">📊 原始分数 (Logits)</h4>
+                  <h4 class="detail-section-title">📊 Raw Scores (Logits)</h4>
                   <div class="logit-bars">
                     <div class="logit-item" v-for="(val, idx) in currentStepData.logits" :key="idx"
                          :class="{ highlight: result && idx === result.digit }">
@@ -164,7 +164,7 @@
                 </div>
 
                 <div class="detail-probabilities-section" v-if="currentStepData.probabilities && (currentStepData.id === 'softmax' || currentStepData.id === 'result')">
-                  <h4 class="detail-section-title">📊 概率分布</h4>
+                  <h4 class="detail-section-title">📊 Probability Distribution</h4>
                   <div class="prob-bars-detail">
                     <div class="prob-item-detail" v-for="(prob, idx) in currentStepData.probabilities" :key="idx"
                          :class="{ highlight: result && idx === result.digit }">
@@ -180,7 +180,7 @@
                 <div class="detail-result-section" v-if="currentStepData.id === 'result'">
                   <div class="result-display">
                     <div class="result-digit-large">{{ currentStepData.digit }}</div>
-                    <div class="result-confidence-large">置信度 {{ currentStepData.confidence.toFixed(1) }}%</div>
+                    <div class="result-confidence-large">Confidence {{ currentStepData.confidence.toFixed(1) }}%</div>
                   </div>
                 </div>
               </div>
@@ -190,14 +190,14 @@
 
         <div class="modal-footer" v-if="steps.length">
           <div class="controls-left">
-            <button class="ctrl-btn" @click="prevStep" :disabled="currentStep <= 0" title="上一步">
+            <button class="ctrl-btn" @click="prevStep" :disabled="currentStep <= 0" title="Previous">
               <svg viewBox="0 0 1024 1024" width="16" height="16"><path d="M689 165.1L308.5 497.7c-10.4 9.4-10.4 25.2 0 34.6L689 864.9c14.5 13.1 37 2.2 37-17.3V182.4c0-19.5-22.5-30.4-37-17.3z" fill="currentColor"/></svg>
             </button>
-            <button class="ctrl-btn play-btn" @click="togglePlay" :title="isPlaying ? '暂停' : '播放'">
+            <button class="ctrl-btn play-btn" @click="togglePlay" :title="isPlaying ? 'Pause' : 'Play'">
               <svg v-if="!isPlaying" viewBox="0 0 1024 1024" width="18" height="18"><path d="M376.5 136.7l448 344.6c13.4 10.3 13.4 30.8 0 41.1l-448 344.6c-17.7 13.6-43.5 0.8-43.5-20.5V157.2c0-21.3 25.8-34.1 43.5-20.5z" fill="currentColor"/></svg>
               <svg v-else viewBox="0 0 1024 1024" width="18" height="18"><path d="M368 176v672c0 17.7 14.3 32 32 32s32-14.3 32-32V176c0-17.7-14.3-32-32-32s-32 14.3-32 32z m224 0v672c0 17.7 14.3 32 32 32s32-14.3 32-32V176c0-17.7-14.3-32-32-32s-32 14.3-32 32z" fill="currentColor"/></svg>
             </button>
-            <button class="ctrl-btn" @click="nextStep" :disabled="currentStep >= steps.length - 1" title="下一步">
+            <button class="ctrl-btn" @click="nextStep" :disabled="currentStep >= steps.length - 1" title="Next">
               <svg viewBox="0 0 1024 1024" width="16" height="16"><path d="M335 165.1l380.5 332.6c10.4 9.4 10.4 25.2 0 34.6L335 864.9c-14.5 13.1-37 2.2-37-17.3V182.4c0-19.5 22.5-30.4 37-17.3z" fill="currentColor"/></svg>
             </button>
           </div>
@@ -249,7 +249,7 @@ export default {
       playTimer: null,
       result: null,
       speeds: [0.5, 1, 2],
-      statLabelMap: { min: '最小值', max: '最大值', mean: '均值' },
+      statLabelMap: { min: 'Min', max: 'Max', mean: 'Mean' },
       isDark: false
     }
   },
@@ -274,10 +274,10 @@ export default {
     },
     phases() {
       const phaseConfig = [
-        { id: 'preprocessing', name: '图像预处理', icon: '📥' },
-        { id: 'feature_extraction', name: '卷积特征提取', icon: '🔍' },
-        { id: 'classification', name: '全连接分类', icon: '🧠' },
-        { id: 'output', name: '结果输出', icon: '📊' }
+        { id: 'preprocessing', name: 'Image Preprocessing', icon: '📥' },
+        { id: 'feature_extraction', name: 'Convolutional Feature Extraction', icon: '🔍' },
+        { id: 'classification', name: 'Fully Connected Classification', icon: '🧠' },
+        { id: 'output', name: 'Result Output', icon: '📊' }
       ]
 
       return phaseConfig.map(phase => {
@@ -338,8 +338,8 @@ export default {
           this.startAutoPlay()
         })
       } catch (error) {
-        console.error('获取详解失败:', error)
-        this.errorMessage = '获取识别过程详解失败，请确保后端服务正在运行'
+        console.error('Failed to fetch explanation:', error)
+        this.errorMessage = 'Failed to fetch recognition process details. Please ensure the backend service is running'
       } finally {
         this.isLoading = false
       }

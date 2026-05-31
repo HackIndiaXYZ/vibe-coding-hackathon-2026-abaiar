@@ -4,18 +4,18 @@
     <div class="api-mgmt-container">
       <div class="api-mgmt-header">
         <div class="header-left">
-          <button class="back-btn" @click="goBack" title="返回首页">
+          <button class="back-btn" @click="goBack" title="Back to Home">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           </button>
           <div class="header-title-group">
-            <h1 class="header-title">API <span class="gradient-text">统一管理</span></h1>
-            <span class="header-subtitle">管理所有模型供应商的 API Key、Base URL 和模型配置</span>
+            <h1 class="header-title">API <span class="gradient-text">Management</span></h1>
+            <span class="header-subtitle">Manage API Keys, Base URLs, and model configurations for all providers</span>
           </div>
         </div>
         <div class="header-right">
           <div class="env-sync-status" v-if="lastSyncTime" :class="{ syncing: isSyncing }">
             <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            <span>环境变量已同步</span>
+            <span>Environment variables synced</span>
           </div>
         </div>
       </div>
@@ -24,12 +24,12 @@
         <div class="provider-sidebar">
           <div v-if="loading" class="sidebar-loading">
             <div class="loading-spinner"></div>
-            <span>加载中...</span>
+            <span>Loading...</span>
           </div>
           <template v-else>
             <div class="sidebar-search">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-              <input type="text" v-model="searchQuery" placeholder="搜索供应商..." class="sidebar-search-input">
+              <input type="text" v-model="searchQuery" placeholder="Search providers..." class="sidebar-search-input">
             </div>
             <div class="sidebar-section" v-for="cat in filteredCategories" :key="cat.id">
               <div class="sidebar-section-title" @click="toggleSection(cat.id)">
@@ -63,8 +63,8 @@
                 <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
               </svg>
             </div>
-            <p class="empty-text">请从左侧选择一个模型供应商</p>
-            <p class="empty-sub">选择后将在此处显示配置页面</p>
+            <p class="empty-text">Select a model provider from the left</p>
+            <p class="empty-sub">Configuration will appear here after selection</p>
           </div>
 
           <div v-else class="config-form">
@@ -77,50 +77,50 @@
               <div class="config-form-actions">
                 <button class="action-btn reset-btn" @click="resetProvider" :disabled="saving">
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
-                  重置
+                  Reset
                 </button>
               </div>
             </div>
 
             <div v-if="configStatus[activeCategory]?.[selectedProvider]?.missing?.length" class="config-missing-hint">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              <span>缺少必要配置：{{ configStatus[activeCategory][selectedProvider].missing.map(m => ({apiKey: 'API Key', baseUrl: 'API URL', models: '模型型号'}[m] || m)).join('、') }}</span>
+              <span>Missing required config: {{ configStatus[activeCategory][selectedProvider].missing.map(m => ({apiKey: 'API Key', baseUrl: 'API URL', models: 'Model ID'}[m] || m)).join(', ') }}</span>
             </div>
 
             <div class="config-form-body">
               <div class="form-group" :class="{ 'has-error': fieldErrors.model }">
                 <label class="form-label">
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
-                  模型型号
+                  Model ID
                 </label>
                 <div class="model-input-area">
                   <div class="model-chips" v-if="formData.models.length > 0">
                     <transition-group name="chip">
                       <span v-for="(model, idx) in formData.models" :key="model" class="model-chip">
                         <span class="chip-text">{{ model }}</span>
-                        <button class="chip-remove" @click="removeModel(idx)" title="移除模型">
+                        <button class="chip-remove" @click="removeModel(idx)" title="Remove Model">
                           <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
                         </button>
                       </span>
                     </transition-group>
                   </div>
-                  <div v-else class="no-models-hint">暂无模型，请在下方添加或从推荐中选择</div>
+                  <div v-else class="no-models-hint">No models yet. Add one below or select from recommendations</div>
                   <div class="model-add-row">
                     <div class="input-wrap">
                       <input
                         type="text"
                         v-model="newModelInput"
-                        placeholder="输入模型 ID，如 gpt-4o"
+                        placeholder="Enter model ID, e.g. gpt-4o"
                         @keydown.enter.prevent="addModel"
                       >
                     </div>
                     <button class="add-model-btn" @click="addModel">
                       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-                      添加
+                      Add
                     </button>
                   </div>
                   <div v-if="currentProviderMeta.defaultModels && currentProviderMeta.defaultModels.length > 0" class="model-suggestions">
-                    <span class="suggestion-label">推荐模型：</span>
+                    <span class="suggestion-label">Recommended Models:</span>
                     <button
                       v-for="model in suggestedModels"
                       :key="model"
@@ -144,7 +144,7 @@
                   class="form-input"
                 >
                 <div v-if="currentProviderMeta.defaultBaseUrl && !formData.baseUrl" class="field-hint">
-                  默认地址: {{ currentProviderMeta.defaultBaseUrl }}
+                  Default URL: {{ currentProviderMeta.defaultBaseUrl }}
                 </div>
                 <div v-if="fieldErrors.baseUrl" class="field-error">{{ fieldErrors.baseUrl }}</div>
               </div>
@@ -161,7 +161,7 @@
                     placeholder="sk-..."
                     class="form-input mono-input"
                   >
-                  <button class="toggle-visibility-btn" @click="showApiKey = !showApiKey" :title="showApiKey ? '隐藏' : '显示'">
+                  <button class="toggle-visibility-btn" @click="showApiKey = !showApiKey" :title="showApiKey ? 'Hide' : 'Show'">
                     <svg v-if="showApiKey" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
                     <svg v-else viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                   </button>
@@ -174,7 +174,7 @@
                   <div class="toggle-switch" :class="{ on: formData.enabled }" @click="formData.enabled = !formData.enabled">
                     <div class="toggle-thumb"></div>
                   </div>
-                  <span class="toggle-text">{{ formData.enabled ? '已启用' : '已停用' }}</span>
+                  <span class="toggle-text">{{ formData.enabled ? 'Enabled' : 'Disabled' }}</span>
                 </label>
               </div>
             </div>
@@ -190,12 +190,12 @@
                 <button class="test-conn-btn" @click="testConnection" :disabled="testing || !formData.apiKey">
                   <svg v-if="testing" class="spin" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 11-6.219-8.56"/></svg>
                   <svg v-else viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                  {{ testing ? '测试中...' : '测试连接' }}
+                  {{ testing ? 'Testing...' : 'Test Connection' }}
                 </button>
                 <button class="save-btn" @click="saveProvider" :disabled="saving">
                   <svg v-if="saving" class="spin" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 11-6.219-8.56"/></svg>
                   <svg v-else viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-                  {{ saving ? '保存中...' : '保存配置' }}
+                  {{ saving ? 'Saving...' : 'Save Config' }}
                 </button>
               </div>
             </div>
@@ -268,13 +268,13 @@ export default {
       toast: { show: false, message: '', type: 'info' },
       toastTimer: null,
       categories: [
-        { id: 'llm', name: 'LLM 大语言模型', icon: '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>' },
-        { id: 'image', name: '图像生成', icon: '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>' },
-        { id: 'video', name: '视频生成', icon: '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>' },
-        { id: 'tts', name: '语音合成', icon: '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>' },
-        { id: 'asr', name: '语音识别', icon: '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/></svg>' },
-        { id: 'pdf', name: 'PDF 解析', icon: '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>' },
-        { id: 'webSearch', name: '网络搜索', icon: '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>' },
+        { id: 'llm', name: 'LLM Large Language Models', icon: '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>' },
+        { id: 'image', name: 'Image Generation', icon: '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>' },
+        { id: 'video', name: 'Video Generation', icon: '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>' },
+        { id: 'tts', name: 'Text-to-Speech', icon: '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>' },
+        { id: 'asr', name: 'Speech Recognition', icon: '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/></svg>' },
+        { id: 'pdf', name: 'PDF Parsing', icon: '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>' },
+        { id: 'webSearch', name: 'Web Search', icon: '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>' },
       ],
     }
   },
@@ -354,12 +354,12 @@ export default {
     getStatusLabel(catId, pid) {
       const status = this.getProviderStatus(catId, pid)
       const labels = {
-        configured: '已配置',
-        incomplete: '配置不完整',
-        unconfigured: '未配置',
-        disabled: '已停用',
+        configured: 'Configured',
+        incomplete: 'Incomplete Config',
+        unconfigured: 'Not Configured',
+        disabled: 'Disabled',
       }
-      return labels[status] || '未配置'
+      return labels[status] || 'Not Configured'
     },
     getStatusClass(catId, pid) {
       const status = this.getProviderStatus(catId, pid)
@@ -388,7 +388,7 @@ export default {
       const modelId = this.newModelInput.trim()
       if (!modelId) return
       if (this.formData.models.includes(modelId)) {
-        this.fieldErrors = { ...this.fieldErrors, model: `模型 "${modelId}" 已存在` }
+        this.fieldErrors = { ...this.fieldErrors, model: `Model "${modelId}" already exists` }
         return
       }
       this.formData.models.push(modelId)
@@ -410,18 +410,18 @@ export default {
       if (this.formData.baseUrl) {
         const urlPattern = /^https?:\/\/[^\s]+$/i
         if (!urlPattern.test(this.formData.baseUrl)) {
-          errors.baseUrl = 'API URL 格式无效，请输入完整的 HTTP/HTTPS 地址'
+          errors.baseUrl = 'Invalid API URL format. Please enter a full HTTP/HTTPS address'
         }
       }
       if (this.formData.apiKey && this.formData.apiKey.length < 8) {
-        errors.apiKey = 'API Key 长度不能少于8个字符'
+        errors.apiKey = 'API Key must be at least 8 characters'
       }
       this.fieldErrors = errors
       return Object.keys(errors).length === 0
     },
     async saveProvider() {
       if (!this.validateForm()) {
-        this.saveMessage = '请修正表单中的错误后再保存'
+        this.saveMessage = 'Please fix the errors in the form before saving'
         this.saveMessageType = 'error'
         return
       }
@@ -447,22 +447,22 @@ export default {
             enabled: this.formData.enabled,
           }
           this.loadConfigStatus()
-          this.saveMessage = '配置保存成功！已自动同步至环境变量'
+          this.saveMessage = 'Configuration saved! Auto-synced to environment variables'
           this.saveMessageType = 'success'
-          this.showToast('配置已保存并自动同步至环境变量', 'success')
+          this.showToast('Configuration saved and synced to environment variables', 'success')
           this.lastSyncTime = new Date()
         } else if (res.data.errors) {
           this.fieldErrors = res.data.errors
-          this.saveMessage = '验证失败，请检查错误字段'
+          this.saveMessage = 'Validation failed. Please check the error fields'
           this.saveMessageType = 'error'
         }
       } catch (e) {
         if (e.response?.status === 422 && e.response?.data?.errors) {
           this.fieldErrors = e.response.data.errors
-          this.saveMessage = '验证失败，请检查错误字段'
+          this.saveMessage = 'Validation failed. Please check the error fields'
           this.saveMessageType = 'error'
         } else {
-          this.saveMessage = '保存失败: ' + (e.response?.data?.error || e.message)
+          this.saveMessage = 'Save failed: ' + (e.response?.data?.error || e.message)
           this.saveMessageType = 'error'
         }
       } finally {
@@ -471,7 +471,7 @@ export default {
     },
     async testConnection() {
       if (!this.formData.apiKey) {
-        this.showToast('请先填写 API Key', 'error')
+        this.showToast('Please enter an API Key first', 'error')
         return
       }
       this.testing = true
@@ -487,9 +487,9 @@ export default {
         this.testResult = res.data
       } catch (e) {
         if (e.code === 'ECONNABORTED') {
-          this.testResult = { success: false, message: '连接超时，请检查网络或API地址是否正确' }
+          this.testResult = { success: false, message: 'Connection timed out. Please check your network or API URL' }
         } else {
-          this.testResult = { success: false, message: e.response?.data?.message || '连接测试失败' }
+          this.testResult = { success: false, message: e.response?.data?.message || 'Connection test failed' }
         }
       } finally {
         this.testing = false
@@ -501,7 +501,7 @@ export default {
       return 'openai'
     },
     async resetProvider() {
-      if (!confirm(`确定要重置 ${this.currentProviderMeta.name} 的配置吗？此操作不可撤销。`)) return
+      if (!confirm(`Are you sure you want to reset ${this.currentProviderMeta.name} config? This action cannot be undone.`)) return
       try {
         await axios.delete(`${API_BASE}/api/config/${this.activeCategory}/${this.selectedProvider}`)
         await Promise.all([this.loadConfig(), this.loadConfigStatus()])
@@ -509,9 +509,9 @@ export default {
         this.saveMessage = ''
         this.testResult = null
         this.fieldErrors = {}
-        this.showToast('已重置配置并同步至环境变量', 'success')
+        this.showToast('Config reset and synced to environment variables', 'success')
       } catch (e) {
-        this.showToast('重置失败: ' + (e.response?.data?.error || e.message), 'error')
+        this.showToast('Reset failed: ' + (e.response?.data?.error || e.message), 'error')
       }
     },
     async loadRegistry() {
@@ -519,8 +519,8 @@ export default {
         const res = await axios.get(`${API_BASE}/api/providers`, { timeout: 10000 })
         this.providerRegistry = res.data
       } catch (e) {
-        console.error('加载供应商注册表失败:', e)
-        this.showToast('加载供应商列表失败，请检查API管理服务是否启动', 'error')
+        console.error('Failed to load provider registry:', e)
+        this.showToast('Failed to load provider list. Please check if the API management service is running', 'error')
       }
     },
     async loadConfig() {
@@ -528,8 +528,8 @@ export default {
         const res = await axios.get(`${API_BASE}/api/config`, { timeout: 10000 })
         this.config = res.data
       } catch (e) {
-        console.error('加载配置失败:', e)
-        this.showToast('加载配置失败，请检查API管理服务是否启动', 'error')
+        console.error('Failed to load config:', e)
+        this.showToast('Failed to load config. Please check if the API management service is running', 'error')
       }
     },
     async loadConfigStatus() {
@@ -537,7 +537,7 @@ export default {
         const res = await axios.get(`${API_BASE}/api/config/status`, { timeout: 10000 })
         this.configStatus = res.data
       } catch (e) {
-        console.error('加载配置状态失败:', e)
+        console.error('Failed to load config status:', e)
       }
     },
   },

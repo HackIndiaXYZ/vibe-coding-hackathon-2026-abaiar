@@ -3,10 +3,10 @@
     <div class="digit-header">
       <button class="back-btn" @click="goBack">
         <svg viewBox="0 0 1024 1024" width="20" height="20"><path d="M669.6 849.6L368.8 548.8c-12-12-12-32 0-44l300.8-300.8c12-12 32-12 44 0s12 32 0 44L436 526.8l277.6 278.8c12 12 12 32 0 44-6 6-14 8.4-22 8.4s-16-2.8-22-8.4z" fill="currentColor"/></svg>
-        返回
+        Back
       </button>
-      <h1 class="page-title">手写数字识别</h1>
-      <p class="page-subtitle">在画板上书写数字，AI实时识别你的笔迹 · CNN + GPU加速</p>
+      <h1 class="page-title">Handwritten Digit Recognition</h1>
+      <p class="page-subtitle">Write digits on the canvas, AI recognizes your handwriting in real-time · CNN + GPU Accelerated</p>
     </div>
 
     <div class="digit-body">
@@ -23,20 +23,20 @@
             @touchend="stopDrawing"
           ></canvas>
           <div class="canvas-hint" v-if="!hasDrawn">
-            <span>✏️ 在此处书写数字 (0-9)</span>
+            <span>✏️ Write a digit here (0-9)</span>
           </div>
         </div>
         <div class="canvas-actions">
           <button class="clear-btn" @click="clearCanvas">
             <svg viewBox="0 0 1024 1024" width="16" height="16"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64z m0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" fill="currentColor"/><path d="M464 688a48 48 0 1 0 96 0 48 48 0 1 0-96 0z m16-304v176c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V384c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8z" fill="currentColor"/></svg>
-            清除画板
+            Clear Canvas
           </button>
           <button class="recognize-btn" @click="recognize" :disabled="!hasDrawn || isRecognizing">
-            {{ isRecognizing ? '识别中...' : '🔍 识别数字' }}
+            {{ isRecognizing ? 'Recognizing...' : '🔍 Recognize' }}
           </button>
         </div>
         <div class="pen-settings">
-          <label>笔画粗细</label>
+          <label>Stroke Width</label>
           <input type="range" min="8" max="30" v-model="penSize" />
           <span class="pen-size-label">{{ penSize }}px</span>
         </div>
@@ -50,35 +50,35 @@
               <div class="confidence-bar">
                 <div class="confidence-fill" :style="{ width: result.confidence + '%' }"></div>
               </div>
-              <span class="confidence-text">置信度 {{ result.confidence.toFixed(1) }}%</span>
+              <span class="confidence-text">Confidence {{ result.confidence.toFixed(1) }}%</span>
             </div>
           </div>
           <div class="result-meta">
             <span class="meta-item" v-if="result.inference_time_ms">
-              ⚡ 推理耗时 {{ result.inference_time_ms }}ms
+              ⚡ Inference Time {{ result.inference_time_ms }}ms
             </span>
             <span class="meta-item gpu" v-if="result.device === 'cuda'">
-              🚀 GPU加速
+              🚀 GPU Accelerated
             </span>
             <span class="meta-item" v-else>
-              💻 CPU推理
+              💻 CPU Inference
             </span>
           </div>
         </div>
 
         <div class="result-placeholder" v-else>
           <div class="placeholder-icon">🔢</div>
-          <p>在左侧画板书写数字后点击识别</p>
-          <p class="placeholder-sub">基于CNN卷积神经网络 + MNIST数据集训练</p>
+          <p>Write a digit on the left canvas and click Recognize</p>
+          <p class="placeholder-sub">Based on CNN + MNIST dataset training</p>
         </div>
 
         <button class="explain-btn" v-if="result" @click="openExplanation">
           <svg viewBox="0 0 1024 1024" width="18" height="18"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zm0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" fill="currentColor"/><path d="M464 336a48 48 0 1 0 96 0 48 48 0 1 0-96 0zm72 112h-48c-4.4 0-8 3.6-8 8v272c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V456c0-4.4-3.6-8-8-8z" fill="currentColor"/></svg>
-          识别过程详解
+          Recognition Process Details
         </button>
 
         <div class="probability-chart" v-if="probabilities.length">
-          <h3 class="chart-title">各数字概率分布</h3>
+          <h3 class="chart-title">Digit Probability Distribution</h3>
           <div class="prob-bars">
             <div class="prob-item" v-for="(prob, idx) in probabilities" :key="idx"
               :class="{ active: idx === result?.digit }">
@@ -92,51 +92,51 @@
         </div>
 
         <div class="preview-section" v-if="hasDrawn">
-          <h3 class="chart-title">28×28 像素化预览</h3>
+          <h3 class="chart-title">28×28 Pixel Preview</h3>
           <canvas ref="previewCanvas" width="140" height="140" class="preview-canvas"></canvas>
-          <p class="preview-hint">AI将手写图像缩小为28×28像素后进行识别</p>
+          <p class="preview-hint">AI resizes handwritten image to 28×28 pixels for recognition</p>
         </div>
 
         <div class="gpu-info-card" v-if="gpuInfo">
-          <h3 class="chart-title">GPU 加速信息</h3>
+          <h3 class="chart-title">GPU Acceleration Info</h3>
           <div class="gpu-details">
             <div class="gpu-row">
-              <span class="gpu-label">设备</span>
+              <span class="gpu-label">Device</span>
               <span class="gpu-value">{{ gpuInfo.device_name || 'N/A' }}</span>
             </div>
             <div class="gpu-row" v-if="gpuInfo.cuda_version">
-              <span class="gpu-label">CUDA版本</span>
+              <span class="gpu-label">CUDA Version</span>
               <span class="gpu-value">{{ gpuInfo.cuda_version }}</span>
             </div>
             <div class="gpu-row" v-if="gpuInfo.memory_total_gb">
-              <span class="gpu-label">显存总量</span>
+              <span class="gpu-label">Total VRAM</span>
               <span class="gpu-value">{{ gpuInfo.memory_total_gb }} GB</span>
             </div>
             <div class="gpu-row" v-if="gpuInfo.memory_allocated_mb !== undefined">
-              <span class="gpu-label">已用显存</span>
+              <span class="gpu-label">Used VRAM</span>
               <span class="gpu-value">{{ gpuInfo.memory_allocated_mb }} MB</span>
             </div>
           </div>
         </div>
 
         <div class="principle-section">
-          <h3 class="chart-title">工作原理</h3>
+          <h3 class="chart-title">How It Works</h3>
           <div class="principle-steps">
             <div class="step">
               <div class="step-num">1</div>
-              <div class="step-text">手写输入 → 图像采集</div>
+              <div class="step-text">Handwritten Input → Image Capture</div>
             </div>
             <div class="step">
               <div class="step-num">2</div>
-              <div class="step-text">图像预处理 → 缩放至28×28 + 归一化</div>
+              <div class="step-text">Image Preprocessing → Resize to 28×28 + Normalization</div>
             </div>
             <div class="step">
               <div class="step-num">3</div>
-              <div class="step-text">CNN特征提取 → 3层卷积+池化 (GPU加速)</div>
+              <div class="step-text">CNN Feature Extraction → 3 Conv+Pooling Layers (GPU Accelerated)</div>
             </div>
             <div class="step">
               <div class="step-num">4</div>
-              <div class="step-text">全连接分类 → Softmax输出概率分布</div>
+              <div class="step-text">Fully Connected Classification → Softmax Probability Output</div>
             </div>
           </div>
         </div>
@@ -197,7 +197,7 @@ export default {
         const res = await axios.get(`${API_BASE}/api/digit/status`, { timeout: 3000 })
         this.gpuInfo = res.data.gpu_info
       } catch (e) {
-        console.warn('识别服务未启动')
+        console.warn('Recognition service not running')
       }
     },
     initCanvas() {
@@ -333,11 +333,11 @@ export default {
         }
 
       } catch (error) {
-        console.error('识别请求失败:', error)
+        console.error('Recognition request failed:', error)
         if (error.code === 'ECONNREFUSED' || error.code === 'ERR_NETWORK') {
-          alert('识别服务未启动，请先启动后端服务：\ncd backend/DigitRecognition && python app.py')
+          alert('Recognition service not running. Please start the backend service first:\ncd backend/DigitRecognition && python app.py')
         } else {
-          alert('识别失败: ' + (error.response?.data?.error || error.message))
+          alert('Recognition failed: ' + (error.response?.data?.error || error.message))
         }
       } finally {
         this.isRecognizing = false

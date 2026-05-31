@@ -5,10 +5,10 @@
         <svg viewBox="0 0 1024 1024" width="20" height="20">
           <path d="M669.6 849.6L368.8 548.8c-12-12-12-32 0-44l300.8-300.8c12-12 32-12 44 0s12 32 0 44L436 526.8l277.6 278.8c12 12 12 32 0 44-6 6-14 8.4-22 8.4s-16-2.8-22-8.4z" fill="currentColor"/>
         </svg>
-        返回主页
+        Back to Home
       </button>
-      <h1 class="page-title">动手做 - 手写数字识别练习</h1>
-      <p class="page-subtitle">通过多种题型巩固知识，从代码理解到实践应用全面提升</p>
+      <h1 class="page-title">Practice - Handwritten Digit Recognition</h1>
+      <p class="page-subtitle">Reinforce knowledge through diverse question types, from code comprehension to practical application</p>
     </div>
 
     <div class="difficulty-section">
@@ -16,7 +16,7 @@
         <svg viewBox="0 0 1024 1024" width="18" height="18">
           <path d="M512 64L128 256v256c0 189.6 130.4 366.8 384 448 253.6-81.2 384-258.4 384-448V256L512 64z" fill="currentColor"/>
         </svg>
-        难度选择
+        Difficulty Selection
       </h3>
       <div class="difficulty-badges">
         <button
@@ -57,7 +57,7 @@
         <h2 class="card-title">{{ mode.title }}</h2>
         <p class="card-desc">{{ mode.description }}</p>
         <div class="card-difficulty">
-          <span class="card-difficulty-label">难度</span>
+          <span class="card-difficulty-label">Difficulty</span>
           <div class="card-difficulty-dots">
             <button
               v-for="i in 5"
@@ -77,7 +77,7 @@
           @click="startPractice(mode.type)"
         >
           <span v-if="isLoading && loadingType === mode.type" class="btn-spinner"></span>
-          <span v-else>开始练习</span>
+          <span v-else>Start Practice</span>
         </button>
       </div>
     </div>
@@ -88,7 +88,7 @@
           <path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64z m0 820c-205.4 0-372-166.6-372-372s166.6-372 372-372 372 166.6 372 372-166.6 372-372 372z" fill="currentColor"/>
           <path d="M512 256v256l170.6 102.4" fill="none" stroke="currentColor" stroke-width="60" stroke-linecap="round"/>
         </svg>
-        快速开始
+        Quick Start
       </h3>
       <div class="quick-start-grid">
         <button
@@ -102,10 +102,10 @@
             </svg>
           </div>
           <div class="quick-info">
-            <span class="quick-title">综合练习</span>
-            <span class="quick-desc">混合所有题型，全面检验</span>
+            <span class="quick-title">Comprehensive</span>
+            <span class="quick-desc">Mix of all question types, full assessment</span>
           </div>
-          <span class="quick-badge">推荐</span>
+          <span class="quick-badge">Recommended</span>
         </button>
         <button
           class="quick-start-card"
@@ -118,8 +118,8 @@
             </svg>
           </div>
           <div class="quick-info">
-            <span class="quick-title">代码专练</span>
-            <span class="quick-desc">专注核心代码理解能力</span>
+            <span class="quick-title">Code Focus</span>
+            <span class="quick-desc">Focus on core code comprehension skills</span>
           </div>
         </button>
         <button
@@ -133,8 +133,8 @@
             </svg>
           </div>
           <div class="quick-info">
-            <span class="quick-title">知识专练</span>
-            <span class="quick-desc">巩固理论知识与概念</span>
+            <span class="quick-title">Knowledge Focus</span>
+            <span class="quick-desc">Strengthen theoretical knowledge and concepts</span>
           </div>
         </button>
         <button
@@ -148,10 +148,10 @@
             </svg>
           </div>
           <div class="quick-info">
-            <span class="quick-title">挑战模式</span>
-            <span class="quick-desc">高难度题目，极限挑战</span>
+            <span class="quick-title">Challenge Mode</span>
+            <span class="quick-desc">High-difficulty questions, ultimate challenge</span>
           </div>
-          <span class="quick-badge hard">困难</span>
+          <span class="quick-badge hard">Hard</span>
         </button>
       </div>
     </div>
@@ -162,7 +162,7 @@
         <div class="spinner-ring"></div>
         <div class="spinner-ring"></div>
       </div>
-      <p class="loading-text">正在生成练习题...</p>
+      <p class="loading-text">Generating practice questions...</p>
     </div>
   </div>
 </template>
@@ -181,27 +181,27 @@ export default {
       cardDifficulties: {},
       isLoading: false,
       loadingType: '',
-      difficultyLabels: ['入门', '初级', '中级', '高级', '专家'],
+      difficultyLabels: ['Beginner', 'Elementary', 'Intermediate', 'Advanced', 'Expert'],
       difficultyColors: ['#43e97b', '#38f9d7', '#667eea', '#f093fb', '#fa709a'],
       practiceModes: [
         {
           type: 'code_understanding',
-          title: '核心代码理解题',
-          description: '阅读手写数字识别项目的关键代码片段，理解其功能与逻辑，提升代码阅读与分析能力。',
+          title: 'Core Code Comprehension',
+          description: 'Read key code snippets from the handwritten digit recognition project, understand their function and logic, and improve code reading and analysis skills.',
           accent: '#43e97b',
           accentEnd: '#38f9d7'
         },
         {
           type: 'choice',
-          title: '相关知识选择题',
-          description: '涵盖CNN原理、MNIST数据集、模型训练与评估等知识点，巩固理论基础。',
+          title: 'Knowledge Multiple Choice',
+          description: 'Covering CNN principles, MNIST dataset, model training and evaluation, and more to consolidate theoretical foundations.',
           accent: '#667eea',
           accentEnd: '#764ba2'
         },
         {
           type: 'short_answer',
-          title: '简答题',
-          description: '针对手写数字识别的核心概念与实现细节进行深入思考与表达，锻炼综合理解能力。',
+          title: 'Short Answer',
+          description: 'Think deeply and express your understanding of core concepts and implementation details of handwritten digit recognition, developing comprehensive understanding skills.',
           accent: '#f093fb',
           accentEnd: '#fa709a'
         }
@@ -236,7 +236,7 @@ export default {
       this.loadingType = type
       try {
         const res = await axios.post(`${API_BASE}/api/practice/generate`, {
-          topic: '手写数字识别',
+          topic: 'Handwritten Digit Recognition',
           type: type,
           difficulty: difficulty,
           count: 5
@@ -256,11 +256,11 @@ export default {
             }
           })
         } else {
-          alert('生成练习题失败：返回数据格式异常')
+          alert('Failed to generate practice questions: unexpected response format')
         }
       } catch (e) {
-        console.error('生成练习题失败:', e)
-        alert('生成练习题失败，请检查后端服务是否启动')
+        console.error('Failed to generate practice questions:', e)
+        alert('Failed to generate practice questions. Please check if the backend service is running.')
       } finally {
         this.isLoading = false
         this.loadingType = ''
@@ -280,7 +280,7 @@ export default {
       this.loadingType = preset
       try {
         const res = await axios.post(`${API_BASE}/api/practice/generate`, {
-          topic: '手写数字识别',
+          topic: 'Handwritten Digit Recognition',
           type: config.type,
           difficulty: config.difficulty,
           count: 5
@@ -300,11 +300,11 @@ export default {
             }
           })
         } else {
-          alert('生成练习题失败：返回数据格式异常')
+          alert('Failed to generate practice questions: unexpected response format')
         }
       } catch (e) {
-        console.error('生成练习题失败:', e)
-        alert('生成练习题失败，请检查后端服务是否启动')
+        console.error('Failed to generate practice questions:', e)
+        alert('Failed to generate practice questions. Please check if the backend service is running.')
       } finally {
         this.isLoading = false
         this.loadingType = ''

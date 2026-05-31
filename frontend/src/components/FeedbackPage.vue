@@ -5,10 +5,10 @@
         <svg viewBox="0 0 1024 1024" width="20" height="20">
           <path d="M669.6 849.6L368.8 548.8c-12-12-12-32 0-44l300.8-300.8c12-12 32-12 44 0s12 32 0 44L436 526.8l277.6 278.8c12 12 12 32 0 44-6 6-14 8.4-22 8.4s-16-2.8-22-8.4z" fill="currentColor"/>
         </svg>
-        返回主页
+        Back to Home
       </button>
-      <h1 class="page-title">得反馈</h1>
-      <p class="page-subtitle">查看练习历史、错题本、能力分析与排行榜</p>
+      <h1 class="page-title">Feedback</h1>
+      <p class="page-subtitle">View practice history, wrong questions, ability analysis, and leaderboard</p>
     </div>
 
     <div class="tab-bar">
@@ -30,14 +30,14 @@
     <div class="tab-content">
       <div v-if="loading" class="loading-state">
         <div class="loading-spinner"></div>
-        <p>加载中...</p>
+        <p>Loading...</p>
       </div>
 
       <div v-else-if="activeTab === 'history'" class="tab-panel">
         <div v-if="historyList.length === 0" class="empty-state">
           <div class="empty-icon">📋</div>
-          <p>暂无做题记录</p>
-          <p class="empty-sub">完成练习后，历史记录将在此显示</p>
+          <p>No practice records yet</p>
+          <p class="empty-sub">Practice history will appear here after completing exercises</p>
         </div>
         <div v-else class="history-list">
           <div
@@ -53,31 +53,31 @@
                 <span class="difficulty-badge" :class="getDifficultyClass(record.difficulty)">{{ difficultyLabel(record.difficulty) }}</span>
               </div>
               <div class="history-center">
-                <span class="history-topic">{{ record.topic || '综合练习' }}</span>
+                <span class="history-topic">{{ record.topic || 'Comprehensive Practice' }}</span>
                 <span class="history-time">{{ record.created_at }}</span>
               </div>
               <div class="history-right">
-                <span class="history-score">{{ record.score }}<small>分</small></span>
-                <span class="history-accuracy">正确率 {{ record.accuracy }}%</span>
+                <span class="history-score">{{ record.score }}<small>pts</small></span>
+                <span class="history-accuracy">Accuracy {{ record.accuracy }}%</span>
               </div>
               <span class="expand-arrow" :class="{ rotated: expandedRecord === record.id }">▼</span>
             </div>
             <div v-if="expandedRecord === record.id" class="history-detail">
               <div class="detail-grid">
                 <div class="detail-item">
-                  <span class="detail-label">题目数量</span>
+                  <span class="detail-label">Question Count</span>
                   <span class="detail-value">{{ record.total_count || '-' }}</span>
                 </div>
                 <div class="detail-item">
-                  <span class="detail-label">正确数量</span>
+                  <span class="detail-label">Correct Count
                   <span class="detail-value correct">{{ record.correct_count || '-' }}</span>
                 </div>
                 <div class="detail-item">
-                  <span class="detail-label">用时</span>
+                  <span class="detail-label">Duration</span>
                   <span class="detail-value">{{ record.duration || '-' }}</span>
                 </div>
                 <div class="detail-item">
-                  <span class="detail-label">得分</span>
+                  <span class="detail-label">Score</span>
                   <span class="detail-value score">{{ record.score }}</span>
                 </div>
               </div>
@@ -92,27 +92,27 @@
           </div>
         </div>
         <div v-if="historyList.length > 0" class="pagination">
-          <button class="page-btn" :disabled="historyPage <= 1" @click="changePage(historyPage - 1)">上一页</button>
-          <span class="page-info">第 {{ historyPage }} 页</span>
-          <button class="page-btn" :disabled="historyList.length < historyPageSize" @click="changePage(historyPage + 1)">下一页</button>
+          <button class="page-btn" :disabled="historyPage <= 1" @click="changePage(historyPage - 1)">Previous</button>
+          <span class="page-info">Page {{ historyPage }}</span>
+          <button class="page-btn" :disabled="historyList.length < historyPageSize" @click="changePage(historyPage + 1)">Next</button>
         </div>
       </div>
 
       <div v-else-if="activeTab === 'wrong'" class="tab-panel">
         <div class="wrong-toolbar">
           <select v-model="wrongCategory" class="category-select" @change="fetchWrongQuestions">
-            <option value="">全部分类</option>
+            <option value="">All Categories</option>
             <option v-for="cat in wrongCategories" :key="cat" :value="cat">{{ cat }}</option>
           </select>
           <button class="export-btn" @click="exportWrongQuestions">
             <svg viewBox="0 0 1024 1024" width="16" height="16"><path d="M832 768v128H192v-128H128v128c0 35.3 28.7 64 64 64h640c35.3 0 64-28.7 64-64v-128h-64zM624 565.6l-80 80V128h-64v517.6l-80-80-45.2 45.2L511.6 867.6l156.8-256.8-44.4-45.2z" fill="currentColor"/></svg>
-            导出错题
+            Export Wrong Questions
           </button>
         </div>
         <div v-if="wrongQuestions.length === 0" class="empty-state">
           <div class="empty-icon">🎉</div>
-          <p>暂无错题</p>
-          <p class="empty-sub">所有题目都已掌握，继续保持！</p>
+          <p>No wrong questions</p>
+          <p class="empty-sub">All questions mastered. Keep it up!</p>
         </div>
         <div v-else class="wrong-list">
           <div
@@ -123,37 +123,37 @@
           >
             <div class="wrong-card-header">
               <span class="mastered-indicator" :class="q.mastered ? 'mastered' : 'unmastered'">
-                {{ q.mastered ? '✓ 已掌握' : '● 未掌握' }}
+                {{ q.mastered ? '✓ Mastered' : '● Not Mastered' }}
               </span>
-              <span class="retry-count">重做 {{ q.retry_count || 0 }} 次</span>
+              <span class="retry-count">Retry {{ q.retry_count || 0 }}</span>
             </div>
             <div class="wrong-question-text">{{ q.question }}</div>
             <div class="wrong-answers">
               <div class="answer-row wrong-answer">
-                <span class="answer-label">你的答案</span>
+                <span class="answer-label">Your Answer</span>
                 <span class="answer-value">{{ q.user_answer }}</span>
               </div>
               <div class="answer-row correct-answer">
-                <span class="answer-label">正确答案</span>
+                <span class="answer-label">Correct Answer</span>
                 <span class="answer-value">{{ q.correct_answer }}</span>
               </div>
             </div>
             <div v-if="q.explanation" class="wrong-explanation">
-              <span class="explanation-label">解析</span>
+              <span class="explanation-label">Explanation</span>
               <span class="explanation-text">{{ q.explanation }}</span>
             </div>
             <div v-if="retryingId === q.id" class="retry-input-area">
               <input
                 v-model="retryAnswer"
                 class="retry-input"
-                placeholder="输入你的答案"
+                placeholder="Enter your answer"
                 @keyup.enter="submitRetry(q.id)"
               />
-              <button class="retry-submit-btn" @click="submitRetry(q.id)" :disabled="!retryAnswer.trim()">提交</button>
-              <button class="retry-cancel-btn" @click="cancelRetry">取消</button>
+              <button class="retry-submit-btn" @click="submitRetry(q.id)" :disabled="!retryAnswer.trim()">Submit</button>
+              <button class="retry-cancel-btn" @click="cancelRetry">Cancel</button>
             </div>
             <div v-else class="wrong-card-actions">
-              <button class="retry-btn" @click="startRetry(q.id)">重做</button>
+              <button class="retry-btn" @click="startRetry(q.id)">Retry</button>
             </div>
           </div>
         </div>
@@ -162,8 +162,8 @@
       <div v-else-if="activeTab === 'radar'" class="tab-panel">
         <div v-if="radarData.length === 0 && !radarLoading" class="empty-state">
           <div class="empty-icon">📊</div>
-          <p>暂无能力数据</p>
-          <p class="empty-sub">完成更多练习后，能力分析将在此显示</p>
+          <p>No ability data yet</p>
+          <p class="empty-sub">Ability analysis will appear here after completing more exercises</p>
         </div>
         <template v-else>
           <div class="radar-chart-container" ref="radarChart"></div>
@@ -181,19 +181,19 @@
           <div v-if="statsData" class="stats-summary">
             <div class="stats-card">
               <div class="stats-value">{{ statsData.total_practices || 0 }}</div>
-              <div class="stats-label">总练习次数</div>
+              <div class="stats-label">Total Practices</div>
             </div>
             <div class="stats-card">
               <div class="stats-value">{{ statsData.avg_score || 0 }}</div>
-              <div class="stats-label">平均得分</div>
+              <div class="stats-label">Avg Score</div>
             </div>
             <div class="stats-card">
               <div class="stats-value">{{ statsData.avg_accuracy || 0 }}%</div>
-              <div class="stats-label">平均正确率</div>
+              <div class="stats-label">Avg Accuracy</div>
             </div>
             <div class="stats-card">
               <div class="stats-value">{{ statsData.mastered_count || 0 }}</div>
-              <div class="stats-label">已掌握题目</div>
+              <div class="stats-label">Mastered Questions</div>
             </div>
           </div>
         </template>
@@ -205,17 +205,17 @@
             class="sub-tab-btn"
             :class="{ active: leaderboardType === 'total' }"
             @click="switchLeaderboardType('total')"
-          >总积分排行</button>
+          >Total Score Ranking</button>
           <button
             class="sub-tab-btn"
             :class="{ active: leaderboardType === 'weekly' }"
             @click="switchLeaderboardType('weekly')"
-          >周活跃排行</button>
+          >Weekly Active Ranking</button>
         </div>
         <div v-if="leaderboardList.length === 0" class="empty-state">
           <div class="empty-icon">🏆</div>
-          <p>暂无排行数据</p>
-          <p class="empty-sub">完成练习获取积分，登上排行榜！</p>
+          <p>No ranking data yet</p>
+          <p class="empty-sub">Complete exercises to earn points and climb the leaderboard!</p>
         </div>
         <div v-else class="leaderboard-content">
           <div v-if="topThree.length" class="top-three">
@@ -223,7 +223,7 @@
               <div class="medal">{{ ['🥇', '🥈', '🥉'][idx] }}</div>
               <div class="top-avatar">{{ user.username.charAt(0).toUpperCase() }}</div>
               <div class="top-name">{{ user.username }}</div>
-              <div class="top-score">{{ user.score }}<small>分</small></div>
+              <div class="top-score">{{ user.score }}<small>pts</small></div>
             </div>
           </div>
           <div class="rank-list">
@@ -235,9 +235,9 @@
             >
               <span class="rank-number">{{ user.rank }}</span>
               <span class="rank-name">{{ user.username }}</span>
-              <span class="rank-score">{{ user.score }}分</span>
-              <span v-if="user.gap_prev" class="rank-gap">距上名 +{{ user.gap_prev }}</span>
-              <span v-if="user.gap_next" class="rank-gap next">距下名 -{{ user.gap_next }}</span>
+              <span class="rank-score">{{ user.score }}pts</span>
+              <span v-if="user.gap_prev" class="rank-gap">Gap above +{{ user.gap_prev }}</span>
+              <span v-if="user.gap_next" class="rank-gap next">Gap below -{{ user.gap_next }}</span>
             </div>
           </div>
         </div>
@@ -256,10 +256,10 @@ export default {
       activeTab: 'history',
       isDark: false,
       tabs: [
-        { key: 'history', label: '做题历史', icon: '📋' },
-        { key: 'wrong', label: '错题本', icon: '❌' },
-        { key: 'radar', label: '能力雷达图', icon: '📊' },
-        { key: 'leaderboard', label: '排行榜', icon: '🏆' }
+        { key: 'history', label: 'Practice History', icon: '📋' },
+        { key: 'wrong', label: 'Wrong Questions', icon: '❌' },
+        { key: 'radar', label: 'Ability Radar', icon: '📊' },
+        { key: 'leaderboard', label: 'Leaderboard', icon: '🏆' }
       ],
       loading: false,
       expandedRecord: null,
@@ -342,7 +342,7 @@ export default {
       }, 100)
     },
     difficultyLabel(d) {
-      const map = { 1: '入门', 2: '初级', 3: '中级', 4: '高级', 5: '专家', easy: '简单', medium: '中等', hard: '困难' }
+      const map = { 1: 'Beginner', 2: 'Elementary', 3: 'Intermediate', 4: 'Advanced', 5: 'Expert', easy: 'Easy', medium: 'Medium', hard: 'Hard' }
       return map[d] || d
     },
     getTypeBadgeClass(type) {
@@ -350,8 +350,8 @@ export default {
       return map[type] || 'choice'
     },
     getTypeBadgeLabel(type) {
-      const map = { choice: '选择题', code_understanding: '代码理解', short_answer: '简答题', code: '编程题' }
-      return map[type] || '练习'
+      const map = { choice: 'Multiple Choice', code_understanding: 'Code Comprehension', short_answer: 'Short Answer', code: 'Programming' }
+      return map[type] || 'Practice'
     },
     getDifficultyClass(d) {
       if (typeof d === 'number') {
@@ -377,7 +377,7 @@ export default {
             id: r._id || r.id || Math.random().toString(),
             type: r.type || 'choice',
             difficulty: r.difficulty || 1,
-            topic: r.topic || '综合练习',
+            topic: r.topic || 'Comprehensive Practice',
             created_at: r.created_at || '',
             score: r.total_score || 0,
             accuracy: r.accuracy || 0,
@@ -482,20 +482,20 @@ export default {
             }))
           } else {
             this.radarData = [
-              { name: '算法理解能力', value: 0 },
-              { name: '代码实现能力', value: 0 },
-              { name: '问题分析能力', value: 0 },
-              { name: '模型应用能力', value: 0 },
-              { name: '创新思维能力', value: 0 }
+              { name: 'Algorithm Understanding', value: 0 },
+              { name: 'Code Implementation', value: 0 },
+              { name: 'Problem Analysis', value: 0 },
+              { name: 'Model Application', value: 0 },
+              { name: 'Innovative Thinking', value: 0 }
             ]
           }
         } else {
           this.radarData = [
-            { name: '算法理解能力', value: 0 },
-            { name: '代码实现能力', value: 0 },
-            { name: '问题分析能力', value: 0 },
-            { name: '模型应用能力', value: 0 },
-            { name: '创新思维能力', value: 0 }
+            { name: 'Algorithm Understanding', value: 0 },
+            { name: 'Code Implementation', value: 0 },
+            { name: 'Problem Analysis', value: 0 },
+            { name: 'Model Application', value: 0 },
+            { name: 'Innovative Thinking', value: 0 }
           ]
         }
 
@@ -566,7 +566,7 @@ export default {
           type: 'radar',
           data: [{
             value: values,
-            name: '能力值',
+            name: 'Ability',
             areaStyle: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                 { offset: 0, color: 'rgba(67, 233, 123, 0.4)' },
